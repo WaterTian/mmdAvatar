@@ -375,6 +375,7 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 	var dv = new THREE.MMDLoader.DataView( buffer );
 	var helper = new THREE.MMDLoader.DataCreationHelper();
 
+
 	pmd.metadata = {};
 	pmd.metadata.format = 'pmd';
 	pmd.metadata.coordinateSystem = 'left';
@@ -577,7 +578,6 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 
 		}
 
-
 	};
 
 	var parseMorphFrames = function () {
@@ -600,7 +600,6 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 			pmd.morphFrames.push( parseMorphFrame() );
 
 		}
-
 	};
 
 	var parseBoneFrameNames = function () {
@@ -623,7 +622,6 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 			pmd.boneFrameNames.push( parseBoneFrameName() );
 
 		}
-
 	};
 
 	var parseBoneFrames = function () {
@@ -857,7 +855,7 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 	parseRigidBodies();
 	parseConstraints();
 
-	// console.log( pmd ); // for console debug
+	console.log( pmd ); // for console debug
 
 	return pmd;
 

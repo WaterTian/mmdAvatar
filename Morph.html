@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>AppMagics</title>
+		<title>MMD-Morph</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
 		<style>
@@ -12,10 +12,21 @@
 				margin: 0px;
 				overflow: hidden;
 			}
+			#info {
+				color: #000;
+				position: absolute;
+				top: 10px;
+				width: 100%;
+				text-align: center;
+				z-index: 100;
+				display:block;
+			}
+			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
 		</style>
 	</head>
 
 	<body>
+
 		<script src="build/three.min.js"></script>
 
         <script src="js/controls/OrbitControls.js"></script>
@@ -30,13 +41,14 @@
 		<script src="js/animation/MMDPhysics.js"></script>
 
 		<script src="js/Detector.js"></script>
+		<script src="js/libs/stats.min.js"></script>
+		<script src="js/libs/dat.gui.min.js"></script>
+
 		<script>
 
 			var container, stats;
 
 			var camera, scene, renderer;
-			var mesh;
-			var sky;
 			var helper;
 
 			var ready = false;
@@ -57,27 +69,17 @@
 				document.body.appendChild( container );
 
 				camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+				camera.position.z = 25;
 
 				// scene
-
 				scene = new THREE.Scene();
 
-				//light
 				var ambient = new THREE.AmbientLight( 0x666666 );
 				scene.add( ambient );
+
 				var directionalLight = new THREE.DirectionalLight( 0x887766 );
 				directionalLight.position.set( -1, 1, 1 ).normalize();
 				scene.add( directionalLight );
-
-
-			    //sky
-				var skyM = new THREE.MeshPhongMaterial({
-					color: 0xc5a3e7,
-					emissive: 0x000,
-					side: THREE.BackSide
-				});
-				sky = new THREE.Mesh(new THREE.SphereGeometry(40, 3, 3), skyM);
-				scene.add(sky);
 
 				//
 				renderer = new THREE.WebGLRenderer( { antialias: true } );
@@ -92,66 +94,97 @@
 				camera.position.set( 2, 18, 28 );
 				controls.update();
 
-				//Loading
-				loading = document.createElement('div');
-				loading.style.position = 'absolute';
-				loading.style.top = '60px';
-				loading.style.width = '100%';
-				loading.style.textAlign = 'center';
-				loading.innerHTML = 'Loading..';
-				container.appendChild(loading);
 
 				// model
 				var onProgress = function ( xhr ) {
-					if (xhr.lengthComputable) {
+					if ( xhr.lengthComputable ) {
 						var percentComplete = xhr.loaded / xhr.total * 100;
-						var pr = "loading " + Math.round(percentComplete, 2);
-						console.log(pr);
-						loading.innerHTML = pr;
+						console.log( Math.round(percentComplete, 2) + '% downloaded' );
 					}
 				};
 
-				var onError = function ( xhr ) {};
-
-				var modelNum = Math.floor(Math.random()*5);
-
-				var modelFile = 'models/mmd/miku/miku_v2.pmd';
-				if(modelNum==1)modelFile = 'models/low_miku/gumi.pmd';
-				if(modelNum==2)modelFile = 'models/default/neru.pmd';
-				if(modelNum==3)modelFile = 'models/default/rin.pmd';
-
-				var vmdFiles = [ 'models/mmd/vmd/wavefile_v2.vmd' ];
+				var onError = function ( xhr ) {
+				};
 
 				helper = new THREE.MMDHelper( renderer );
 
+				// var modelFile = 'models/mmd/miku/miku_v2.pmd';
+				var modelFile = 'models/default/neru.pmd';
+				// var modelFile = 'models/low_miku/gumi.pmd';
+				
 				var loader = new THREE.MMDLoader();
 				loader.setDefaultTexturePath( './models/mmd/default/' );
+				loader.loadModel( modelFile, function ( object ) {
+					mesh = object;
+					mesh.position.y = -10;
+					helper.add( mesh );
+					scene.add( mesh );
 
-				loader.load( modelFile, vmdFiles, function ( object ) {
-					createMesh(object);
-					loading.style.display="none";
+					initGui();
+					ready = true;
 				}, onProgress, onError );
 
+
+				var motionFile = 'models/mmd/vmd/wavefile_v2.vmd';
+				// var motionFile = 'motion/smile.vmd';
+
+				loader.loadVmd( motionFile, function ( object ) {
+					var vmd = object;
+					console.log(vmd);
+				});
+
+
+
+
+				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
 				window.addEventListener( 'resize', onWindowResize, false );
-				document.addEventListener('touchmove', function(event){event.preventDefault();}, false);
-			}
 
-			function createMesh(object)
-			{
-				mesh = object;
-				helper.add( mesh );
-				helper.setAnimation( mesh );
-				if ( ! isMobileDevice() ) {
-					helper.setPhysics( mesh );
+				function initGui () {
+					var gui = new dat.GUI();
+					var dictionary = mesh.morphTargetDictionary;
+					var controls = {};
+					var keys = [];
+					var morphs = gui.addFolder( 'Morphs' );
+
+					function initControls () {
+						for ( var key in dictionary ) {
+							controls[ key ] = 0.0;
+						}
+					};
+
+					function initKeys () {
+						for ( var key in dictionary ) {
+							keys.push( key );
+						}
+					};
+
+					function initMorphs () {
+						for ( var key in dictionary ) {
+							morphs.add( controls, key, 0.0, 1.0, 0.01 ).onChange( onChangeMorph );
+						}
+					};
+
+					function onChangeMorph () {
+						for ( var i = 0; i < keys.length; i++ ) {
+							var key = keys[ i ];
+							var value = controls[ key ];
+							mesh.morphTargetInfluences[ i ] = value;
+						}
+					};
+
+
+					initControls();
+					initKeys();
+					initMorphs();
+
+					onChangeMorph();
+
+					morphs.open();
 				}
-				helper.unifyAnimationDuration();
 
-				scene.add( mesh );
-				mesh.position.set( 0, -10, 0 );
-				ready = true;
+
 			}
-
 
 			function onWindowResize() {
 				windowHalfX = window.innerWidth / 2;
@@ -163,6 +196,11 @@
 				helper.setSize( window.innerWidth, window.innerHeight );
 			}
 
+			function onDocumentMouseMove( event ) {
+				mouseX = ( event.clientX - windowHalfX ) / 2;
+				mouseY = ( event.clientY - windowHalfY ) / 2;
+			}
+
 			//
 
 			function animate() {
@@ -172,45 +210,17 @@
 			}
 
 			function render() {
+/*
+				camera.position.x += ( - mouseX - camera.position.x ) * .05;
+				camera.position.y += ( - mouseY - camera.position.y ) * .05;
 
+				camera.lookAt( scene.position );
+*/
 				if ( ready ) {
-
-					var delta = clock.getDelta();
-					helper.animate( delta );
 					helper.render( scene, camera );
-
 				} else {
-
 					renderer.render( scene, camera );
-
 				}
-
-			}
-
-			// easy mobile device detection
-			function isMobileDevice () {
-
-				if ( navigator === undefined || navigator.userAgent === undefined ) {
-
-					return true;
-
-				}
-
-				var s = navigator.userAgent;
-
-				if (    s.match( /iPhone/i )
-//				     || s.match( /iPad/i )
-				     || s.match( /iPod/i )
-				     || s.match( /webOS/i )
-				     || s.match( /BlackBerry/i )
-				     || ( s.match( /Windows/i ) && s.match( /Phone/i ) )
-				     || ( s.match( /Android/i ) && s.match( /Mobile/i ) ) ) {
-
-					return true;
-
-				}
-
-				return false;
 
 			}
 

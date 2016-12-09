@@ -108,11 +108,13 @@
 				};
 				var onError = function ( xhr ) {};
 
-				var modelNum = Math.floor(Math.random()*3);
+				var modelNum = Math.floor(Math.random()*5);
 
 				var modelFile = 'models/mmd/miku/miku_v2.pmd';
-				if(modelNum==0)modelFile = 'models/mmd/SeeU/SeeU.pmd';
-				// var modelFile = 'models/mmd/polly/polly.pmd';
+				if(modelNum==1)modelFile = 'models/low_miku/gumi.pmd';
+				if(modelNum==2)modelFile = 'models/default/neru.pmd';
+				if(modelNum==3)modelFile = 'models/default/rin.pmd';
+
 				var vmdFiles = [ 'models/mmd/vmd/wavefile_v2.vmd' ];
 
 				helper = new THREE.MMDHelper( renderer );
