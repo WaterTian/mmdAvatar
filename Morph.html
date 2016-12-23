@@ -51,12 +51,7 @@
 			var camera, scene, renderer;
 			var helper;
 
-			var ready = false;
-
-			var mouseX = 0, mouseY = 0;
-
-			var windowHalfX = window.innerWidth / 2;
-			var windowHalfY = window.innerHeight / 2;
+			var morphAble = false;
 
 			var clock = new THREE.Clock();
 
@@ -74,10 +69,10 @@
 				// scene
 				scene = new THREE.Scene();
 
-				var ambient = new THREE.AmbientLight( 0x666666 );
+				var ambient = new THREE.AmbientLight( 0x333333 );
 				scene.add( ambient );
 
-				var directionalLight = new THREE.DirectionalLight( 0x887766 );
+				var directionalLight = new THREE.DirectionalLight( 0x888888 );
 				directionalLight.position.set( -1, 1, 1 ).normalize();
 				scene.add( directionalLight );
 
@@ -111,32 +106,46 @@
 				// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 				var modelFile = 'models/default/neru.pmd';
 				// var modelFile = 'models/low_miku/gumi.pmd';
-				
+
 				var loader = new THREE.MMDLoader();
 				loader.setDefaultTexturePath( './models/mmd/default/' );
 				loader.loadModel( modelFile, function ( object ) {
 					mesh = object;
-					mesh.position.y = -10;
-					helper.add( mesh );
-					scene.add( mesh );
-
+					
 					initGui();
-					ready = true;
+					loadMotion();
+
 				}, onProgress, onError );
 
 
-				var motionFile = 'models/mmd/vmd/wavefile_v2.vmd';
-				// var motionFile = 'motion/smile.vmd';
+				// var motionFile = 'models/mmd/vmd/wavefile_v2.vmd';
+				var motionFile = 'motion/smile.vmd';
+				// var motionFile = 'motion/arm.vmd';
 
-				loader.loadVmd( motionFile, function ( object ) {
-					var vmd = object;
-					console.log(vmd);
-				});
+				function loadMotion()
+				{
+					loader.loadVmd( motionFile, function ( object ) {
+						var vmd = object;
+						console.log(vmd);
+
+						loader.pourVmdIntoModel(mesh,vmd);
+
+						helper.add( mesh );
+						helper.setAnimation( mesh );
+						helper.setPhysics( mesh );
+						helper.unifyAnimationDuration();
+
+					    mesh.position.y = -10;
+						scene.add( mesh );
+
+						console.log(mesh);
+						
+
+						morphAble = true;
+					});
+				}
 
 
-
-
-				document.addEventListener( 'mousemove', onDocumentMouseMove, false );
 				//
 				window.addEventListener( 'resize', onWindowResize, false );
 
@@ -196,32 +205,21 @@
 				helper.setSize( window.innerWidth, window.innerHeight );
 			}
 
-			function onDocumentMouseMove( event ) {
-				mouseX = ( event.clientX - windowHalfX ) / 2;
-				mouseY = ( event.clientY - windowHalfY ) / 2;
-			}
-
 			//
 
 			function animate() {
-
 				requestAnimationFrame( animate );
 				render();
 			}
 
 			function render() {
-/*
-				camera.position.x += ( - mouseX - camera.position.x ) * .05;
-				camera.position.y += ( - mouseY - camera.position.y ) * .05;
-
-				camera.lookAt( scene.position );
-*/
-				if ( ready ) {
+				if (morphAble){
+					var delta = clock.getDelta();
+					helper.animate( delta );
 					helper.render( scene, camera );
-				} else {
+				}else{
 					renderer.render( scene, camera );
 				}
-
 			}
 
 		</script>

@@ -3415,7 +3415,6 @@ THREE.MMDLoader.DataView.prototype = {
 		}
 
 		return a;
-
 	},
 
 	getFloat32: function () {
@@ -3435,9 +3434,7 @@ THREE.MMDLoader.DataView.prototype = {
 			a.push( this.getFloat32() );
 
 		}
-
 		return a;
-
 	},
 
 	getFloat64: function () {
