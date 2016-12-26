@@ -118,15 +118,23 @@
 				}, onProgress, onError );
 
 
-				// var motionFile = 'models/mmd/vmd/wavefile_v2.vmd';
+				// var motionFile = 'motion/wavefile_v2.vmd';
 				var motionFile = 'motion/smile.vmd';
-				// var motionFile = 'motion/arm.vmd';
+				// var motionFile = 'motion/kishimen.vmd';
+				// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
 				function loadMotion()
 				{
 					loader.loadVmd( motionFile, function ( object ) {
 						var vmd = object;
 						console.log(vmd);
+						vmd.morphs.forEach(function(t)
+						{
+							if(t.weight!=0)
+							{
+								console.log(t);
+							}
+						});
 
 						loader.pourVmdIntoModel(mesh,vmd);
 
