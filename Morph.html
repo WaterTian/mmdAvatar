@@ -1,29 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>MMD-Morph</title>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
-		<style>
-			body {
-				font-family: Monospace;
-				background-color: #fff;
-				color: #000;
-				margin: 0px;
-				overflow: hidden;
-			}
-			#info {
-				color: #000;
-				position: absolute;
-				top: 10px;
-				width: 100%;
-				text-align: center;
-				z-index: 100;
-				display:block;
-			}
-			#info a, .button { color: #f00; font-weight: bold; text-decoration: underline; cursor: pointer }
-		</style>
-	</head>
+    <head>
+        <title>MMDAvatar</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+	    <meta name="apple-mobile-web-app-capable" content="yes">
+	    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <style>
+            body {
+                font-family: Monospace;
+                background-color: #fff;
+                margin: 0px;
+                overflow: hidden;
+            }
+        </style>
+    </head>
 
 	<body>
 
@@ -43,8 +34,35 @@
 		<script src="js/Detector.js"></script>
 		<script src="js/libs/stats.min.js"></script>
 		<script src="js/libs/dat.gui.min.js"></script>
+		<script src="js/libs/Tween.js"></script>
 
 		<script>
+
+			this.TY = this.TY || {};
+			TY.data = [
+				[0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,1,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,1,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,1,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0, 1,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,1,0,0],
+				[0,0,0,0,0,0,0,0,.1,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.9,0,0],
+				[0,0,0,0,0,0,0,0,.2,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.6,0,0],
+				[0,0,0,0,0,0,0,0,.4,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.5,0,0],
+				[0,0,0,0,0,0,0,0,.6,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.4,0,0],
+				[0,0,0,0,0,0,0,0,.7,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.3,0,0],
+				[0,0,0,0,0,0,0,0,.9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0.2,0,0],
+				[0,0,0,0,0,0,0,0,1,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.8,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.7,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.6,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.5,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.4,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.2,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,.1,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+				[0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
+			]
+
+
 
 			var container, stats;
 
@@ -58,6 +76,8 @@
 			init();
 			animate();
 
+
+
 			function init() {
 
 				container = document.createElement( 'div' );
@@ -69,9 +89,15 @@
 				// scene
 				scene = new THREE.Scene();
 
+				// ground Grid
+				var gridHelper = new THREE.GridHelper(18, 32, 0x303030, 0x303030);
+				gridHelper.position.set(0, -10, 0);
+				scene.add(gridHelper);
+
+
+				// Lights
 				var ambient = new THREE.AmbientLight( 0x333333 );
 				scene.add( ambient );
-
 				var directionalLight = new THREE.DirectionalLight( 0x888888 );
 				directionalLight.position.set( -1, 1, 1 ).normalize();
 				scene.add( directionalLight );
@@ -103,8 +129,8 @@
 
 				helper = new THREE.MMDHelper( renderer );
 
-				// var modelFile = 'models/mmd/miku/miku_v2.pmd';
-				var modelFile = 'models/default/neru.pmd';
+				var modelFile = 'models/mmd/miku/miku_v2.pmd';
+				// var modelFile = 'models/default/neru.pmd';
 				// var modelFile = 'models/low_miku/gumi.pmd';
 
 				var loader = new THREE.MMDLoader();
@@ -116,6 +142,9 @@
 					loadMotion();
 
 				}, onProgress, onError );
+
+
+
 
 
 				// var motionFile = 'motion/wavefile_v2.vmd';
@@ -132,7 +161,7 @@
 						{
 							if(t.weight!=0)
 							{
-								console.log(t);
+								// console.log(t);
 							}
 						});
 
@@ -145,13 +174,70 @@
 
 					    mesh.position.y = -10;
 						scene.add( mesh );
-
 						console.log(mesh);
-						
 
+						initMorphControl();
+						
 						morphAble = true;
 					});
 				}
+
+
+				function initMorphControl()
+				{
+					var logString="";
+					var logNum=0;
+					for ( var key in mesh.morphTargetDictionary ) {
+						logString+=logNum+":"+key+"  ";
+						logNum++;
+					}
+					console.log(logString);
+
+					
+					updateMorph();
+				}
+				var _morphNum=0;
+				function updateMorph()
+				{
+					if(_morphNum>=TY.data.length)_morphNum=0;
+
+					setTimeout(updateMorph,1000);
+					setMorph(TY.data[_morphNum]);
+					_morphNum++;
+				}
+
+
+				var cunData=[0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0];
+			    function setMorph(arr)
+			    {
+					for ( var i = 0; i < arr.length; i++ ) {
+						// mesh.morphTargetInfluences[i]= arr[i];
+						var _f=mesh.morphTargetInfluences[i];
+						var _t=arr[i];
+						if(_t!=_f){
+							mesh.morphTargetInfluences[i]=_t;
+						}
+
+						var tween = new TWEEN.Tween({ _v: _f})
+						    .to({ _v:_t}, 300)
+						    .start()
+						    .onUpdate(function() {
+						        // mesh.morphTargetInfluences[i]=this._v;
+						        // console.log(this._v);
+						        cunData[i]=this._v;
+						    });
+					}
+					// console.log(cunData);
+
+					// for ( var i = 0; i < arr.length; i++ ) {
+					// 	var clip = mesh.geometry.animations[ i ];
+					// 	var action = mesh.mixer.clipAction( clip );
+					// 	action.fadeIn(1);
+					// }
+
+			    }
+
+
 
 
 				//
@@ -215,9 +301,10 @@
 
 			//
 
-			function animate() {
+			function animate(time) {
 				requestAnimationFrame( animate );
 				render();
+				TWEEN.update(time);
 			}
 
 			function render() {

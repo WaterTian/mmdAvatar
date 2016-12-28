@@ -855,7 +855,7 @@ THREE.MMDLoader.prototype.parsePmd = function ( buffer ) {
 	parseRigidBodies();
 	parseConstraints();
 
-	console.log( pmd ); // for console debug
+	// console.log( pmd ); // for console debug
 
 	return pmd;
 
@@ -2804,7 +2804,8 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 	this.leftToRightVmd( vmd );
 
 	initMotionAnimations();
-	initMorphAnimations();
+	//TY add
+	// initMorphAnimations();
 
 };
 
@@ -3930,31 +3931,19 @@ THREE.MMDHelper.prototype = {
 			var foundMorphAnimation = false;
 
 			for ( var i = 0; i < mesh.geometry.animations.length; i++ ) {
-
 				var clip = mesh.geometry.animations[ i ];
-
 				var action = mesh.mixer.clipAction( clip );
-
 				if ( clip.tracks[ 0 ].name.indexOf( '.morphTargetInfluences' ) === 0 ) {
-
 					if ( ! foundMorphAnimation ) {
-
 						action.play();
 						foundMorphAnimation = true;
-
 					}
-
 				} else {
-
 					if ( ! foundAnimation ) {
-
 						action.play();
 						foundAnimation = true;
-
 					}
-
 				}
-
 			}
 
 			if ( foundAnimation ) {
