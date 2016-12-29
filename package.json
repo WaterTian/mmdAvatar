@@ -1,0 +1,29 @@
+{
+	"name": "mmdAvatar",
+    "version": "0.0.1",
+    "author": "WaterTian",
+	"devDependencies": {
+		"grunt": "^1.0.1",
+		"grunt-contrib-concat": "^1.0.1",
+		"grunt-contrib-uglify": "^2.0.0"
+	},
+	"libs": [
+	    "js/controls/OrbitControls.js",
+	    "js/libs/charsetencoder.min.js",
+	    "js/libs/ammo.js",
+	    "js/loaders/TGALoader.js",
+	    "js/loaders/MMDLoader.js",
+	    "js/effects/OutlineEffect.js",
+	    "js/animation/CCDIKSolver.js",
+	    "js/animation/MMDPhysics.js",
+	    "js/Detector.js",
+	    "js/libs/Tween.js",
+	    "js/libs/stats.min.js",
+	    "js/libs/dat.gui.min.js"
+	],
+	"main": [
+		"src/core/TY.js",
+		"src/core/utils.js",
+		"src/core/EventDispatcher.js"
+	]
+}
