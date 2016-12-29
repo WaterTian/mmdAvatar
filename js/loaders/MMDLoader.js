@@ -2804,7 +2804,8 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 	this.leftToRightVmd( vmd );
 
 	initMotionAnimations();
-	//TY add
+	
+	//TYadd
 	// initMorphAnimations();
 
 };
