@@ -1,4 +1,3 @@
-
 TY.dpr = window.devicePixelRatio || 1;
 
 TY.isAndroid = /Android/i.test(navigator.userAgent);
@@ -8,6 +7,7 @@ TY.isWeixin = /MicroMessenger\//i.test(navigator.userAgent);
 TY.isWeibo = /Weibo/i.test(navigator.userAgent);
 
 TY.isMobileDevice = isMobileDevice;
+
 function isMobileDevice() {
 	if (navigator === undefined || navigator.userAgent === undefined) {
 		return true;
@@ -17,4 +17,13 @@ function isMobileDevice() {
 		return true;
 	}
 	return false;
+}
+
+
+
+TY.toObject = function(arr) {
+	var rv = {};
+	for (var i = 0; i < arr.length; ++i)
+		rv[i] = arr[i];
+	return rv;
 }

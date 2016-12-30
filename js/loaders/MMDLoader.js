@@ -1638,7 +1638,8 @@ THREE.MMDLoader.prototype.createAnimation = function ( mesh, vmd, name ) {
 	};
 
 	initMotionAnimations();
-	initMorphAnimations();
+	// TYadd
+	// initMorphAnimations();
 
 };
 
@@ -2324,50 +2325,62 @@ THREE.MMDHelper.prototype = {
 
 			var foundAnimation = false;
 			var foundMorphAnimation = false;
-
 			for ( var i = 0; i < mesh.geometry.animations.length; i++ ) {
-
 				var clip = mesh.geometry.animations[ i ];
-
 				var action = mesh.mixer.clipAction( clip );
-
 				if ( clip.tracks[ 0 ].name.indexOf( '.morphTargetInfluences' ) === 0 ) {
-
 					if ( ! foundMorphAnimation ) {
-
 						action.play();
 						foundMorphAnimation = true;
-
 					}
-
 				} else {
-
 					if ( ! foundAnimation ) {
-
 						action.play();
 						foundAnimation = true;
-
 					}
-
 				}
-
 			}
 
 			if ( foundAnimation ) {
-
 				mesh.ikSolver = new THREE.CCDIKSolver( mesh );
-
 				if ( mesh.geometry.grants !== undefined ) {
-
 					mesh.grantSolver = new THREE.MMDGrantSolver( mesh );
-
 				}
-
 			}
-
 		}
-
 	},
+
+    //tyadd
+	TYsetAnimation: function ( mesh ) {
+
+		if ( mesh.geometry.animations !== undefined ) {
+			mesh.mixer = new THREE.AnimationMixer( mesh );
+			// TODO: find a workaround not to access (seems like) private properties
+			//       the name of them begins with "_".
+			mesh.mixer.addEventListener( 'loop', function ( e ) {
+				if ( e.action._clip.tracks[ 0 ].name.indexOf( '.bones' ) !== 0 ) return;
+				var mesh = e.target._root;
+				mesh.looped = true;
+			} );
+		}
+	},
+
+    //tyadd
+	TYsetikSolver: function ( mesh ) {
+		mesh.ikSolver = new THREE.CCDIKSolver( mesh );
+		if ( mesh.geometry.grants !== undefined ) {
+			mesh.grantSolver = new THREE.MMDGrantSolver( mesh );
+		}
+	},
+
+    //tyadd
+	TYplayAction: function(mesh, clip, weight) {
+		var action = mesh.mixer.clipAction(clip);
+		action.setEffectiveWeight(weight);
+		action.play();
+		return action;
+	},
+
 
 	setCameraAnimation: function ( camera ) {
 
