@@ -20,20 +20,23 @@
 
 		<script src="build/three.js"></script>
 
-<!--         <script src="js/controls/OrbitControls.js"></script>
-		<script src="js/libs/charsetencoder.min.js"></script>
+
+		<script src="js/libs/mmdparser.min.js"></script>
 		<script src="js/libs/ammo.js"></script>
 		<script src="js/loaders/TGALoader.js"></script>
 		<script src="js/loaders/MMDLoader.js"></script>
 		<script src="js/effects/OutlineEffect.js"></script>
 		<script src="js/animation/CCDIKSolver.js"></script>
 		<script src="js/animation/MMDPhysics.js"></script>
+		<script src="js/controls/OrbitControls.js"></script>
 		<script src="js/Detector.js"></script>
+		<script src="js/libs/Tween.js"></script>
 		<script src="js/libs/stats.min.js"></script>
 		<script src="js/libs/dat.gui.min.js"></script>
-		<script src="js/libs/Tween.js"></script> -->
 
-		<script src="build/libs.min.js"></script>
+
+
+		<!-- <script src="build/libs.min.js"></script> -->
 		
 		<script src="build/mmdAvatar.js"></script>
 
@@ -106,10 +109,8 @@
 
 			var container, stats;
 
-			var camera, scene, renderer;
-			var helper;
-
-			var morphAble = false;
+			var mesh, camera, scene, renderer, effect;
+			var helper, ikHelper, physicsHelper;
 
 			var clock = new THREE.Clock();
 
@@ -117,9 +118,7 @@
 			animate();
 
 
-
 			function init() {
-
 				container = document.createElement( 'div' );
 				document.body.appendChild( container );
 
@@ -149,6 +148,9 @@
 				renderer.setClearColor( new THREE.Color( 0xffffff ) );
 				container.appendChild( renderer.domElement );
 
+				// effect
+				effect = new THREE.OutlineEffect( renderer );
+
 				// controls, camera
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.target.set( 0, 0, 0 );
@@ -170,8 +172,6 @@
 				var onError = function ( xhr ) {
 				};
 
-				helper = new THREE.MMDHelper( renderer );
-
 				var modelFile = 'models/pmd/p9.pmd';
 				// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 				// var modelFile = 'models/default/miku_m.pmd';
@@ -184,56 +184,44 @@
 				// var modelFile = 'models/default/MEIKO.pmd';
 				// var modelFile = 'models/default/haku.pmd';
 				// var modelFile = 'models/low_miku/miku.pmd';
-				
 
+				// var motionFile = 'motion/nof_motion/nof_haku.vmd';
+				var motionFile = 'motion/wavefile_v2.vmd';
+				// var motionFile = 'motion/smile.vmd';
+				// var motionFile = 'motion/kishimen.vmd';
+				// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
+				
+				var vmdFiles = ['motion/wavefile_v2.vmd','motion/kishimen.vmd'];
+
+				helper = new THREE.MMDHelper();
 				var loader = new THREE.MMDLoader();
-				loader.setDefaultTexturePath( './models/mmd/default/' );
-				loader.loadModel( modelFile, function ( object ) {
+				loader.load( modelFile, vmdFiles, function ( object ) {
 					mesh = object;
-					
+					mesh.position.y = -10;
+					scene.add( mesh );
+
+					helper.add( mesh );
+					helper.setAnimation( mesh );
+					/*
+					 * Note: create CCDIKHelper after calling helper.setAnimation()
+					 */
+					ikHelper = new THREE.CCDIKHelper( mesh );
+					ikHelper.visible = false;
+					scene.add( ikHelper );
+					/*
+					 * Note: You're recommended to call helper.setPhysics()
+					 *       after calling helper.setAnimation().
+			 		 */
+					helper.setPhysics( mesh );
+					physicsHelper = new THREE.MMDPhysicsHelper( mesh );
+					physicsHelper.visible = false;
+					scene.add( physicsHelper );
+
+					helper.unifyAnimationDuration( { afterglow: 2.0 } );
 					initGui();
-					loadMotion();
 
 				}, onProgress, onError );
 
-
-
-				// var motionFile = 'motion/nof_motion/nof_haku.vmd';
-				// var motionFile = 'motion/wavefile_v2.vmd';
-				var motionFile = 'motion/smile.vmd';
-				// var motionFile = 'motion/kishimen.vmd';
-				// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
-
-				function loadMotion()
-				{
-					loader.loadVmd( motionFile, function ( object ) {
-						var vmd = object;
-						console.log(vmd);
-						vmd.morphs.forEach(function(t)
-						{
-							if(t.weight!=0)
-							{
-								// console.log(t);
-							}
-						});
-						loader.pourVmdIntoModel(mesh,vmd);
-
-						helper.add( mesh );
-						helper.setAnimation( mesh );
-						// helper.setPhysics( mesh );
-						helper.unifyAnimationDuration();
-
-					    mesh.position.y = -10;
-						scene.add( mesh );
-						console.log(mesh);
-
-						logMorphString();
-
-						initMorphControl();
-						
-						morphAble = true;
-					});
-				}
 
 				function initMorphControl()
 				{
@@ -355,14 +343,60 @@
 						}
 					};
 
+					function initOther()
+					{
+						var api = {
+							'animation': true,
+							'gradient mapping': true,
+							'ik': true,
+							'outline': true,
+							'physics': true,
+							'show IK bones': false,
+							'show rigid bodies': false
+						};
+						gui.add( api, 'animation' ).onChange( function () {
+							helper.doAnimation = api[ 'animation' ];
+						} );
+						gui.add( api, 'gradient mapping' ).onChange( function () {
+							if ( originalMaterials === undefined ) originalMaterials = mesh.material;
+							if ( phongMaterials === undefined ) makePhongMaterials( mesh.material.materials );
+							if ( api[ 'gradient mapping' ] ) {
+								mesh.material = originalMaterials;
+							} else {
+								mesh.material = phongMaterials;
+							}
+						} );
+
+						gui.add( api, 'ik' ).onChange( function () {
+							helper.doIk = api[ 'ik' ];
+						} );
+
+						gui.add( api, 'outline' ).onChange( function () {
+							effect.enabled = api[ 'outline' ];
+						} );
+
+						gui.add( api, 'physics' ).onChange( function () {
+							helper.enablePhysics( api[ 'physics' ] );
+						} );
+
+						gui.add( api, 'show IK bones' ).onChange( function () {
+							ikHelper.visible = api[ 'show IK bones' ];
+						} );
+
+						gui.add( api, 'show rigid bodies' ).onChange( function () {
+							if ( physicsHelper !== undefined ) physicsHelper.visible = api[ 'show rigid bodies' ];
+						} );
+					}
+
 
 					initControls();
 					initKeys();
 					initMorphs();
+					initOther();
 
 					onChangeMorph();
 
-					morphs.open();
+					morphs.close();
 				}
 
 
@@ -375,7 +409,7 @@
 				camera.aspect = window.innerWidth / window.innerHeight;
 				camera.updateProjectionMatrix();
 
-				helper.setSize( window.innerWidth, window.innerHeight );
+				effect.setSize( window.innerWidth, window.innerHeight );
 			}
 
 			//
@@ -388,13 +422,10 @@
 			}
 
 			function render() {
-				if (morphAble){
-					var delta = clock.getDelta();
-					helper.animate( delta );
-					helper.render( scene, camera );
-				}else{
-					renderer.render( scene, camera );
-				}
+				helper.animate( clock.getDelta() );
+				if ( physicsHelper !== undefined && physicsHelper.visible ) physicsHelper.update();
+				if ( ikHelper !== undefined && ikHelper.visible ) ikHelper.update();
+				effect.render( scene, camera );
 			}
 
 		</script>
