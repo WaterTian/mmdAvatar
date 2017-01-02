@@ -153,6 +153,8 @@ function init() {
 		physicsHelper = new THREE.MMDPhysicsHelper(mesh);
 		physicsHelper.visible = false;
 		scene.add(physicsHelper);
+
+		if(TY.isMobileDevice)helper.enablePhysics(false);
 	}
 
 
@@ -334,6 +336,7 @@ function init() {
 		onChangeMorph();
 
 		morphs.close();
+		gui.close();
 	}
 }
 
