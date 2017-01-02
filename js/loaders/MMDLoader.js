@@ -151,7 +151,9 @@ THREE.MMDLoader.prototype.loadVmds = function ( urls, callback, onProgress, onEr
 
 			} else {
 
-				callback( scope.mergeVmds( vmds ) );
+				// callback( scope.mergeVmds( vmds ) );
+				// TYadd
+				callback(vmds);
 
 			}
 
@@ -2381,6 +2383,17 @@ THREE.MMDHelper.prototype = {
 		return action;
 	},
 
+    //tyadd
+	/*
+	  percent 0~1  duration/alltimes percent 
+	*/
+	TYgotoAndPlayAction: function(mesh, clip, weight,percent) {
+		var action = mesh.mixer.clipAction(clip);
+		action.setEffectiveWeight(weight);
+		action.time = clip.duration * 0.5 * percent;
+		action.play();
+		return action;
+	},
 
 	setCameraAnimation: function ( camera ) {
 

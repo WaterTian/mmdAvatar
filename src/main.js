@@ -54,6 +54,19 @@ function init() {
 	stats = new Stats();
 	container.appendChild(stats.dom);
 
+
+	//Btns
+	var options = document.createElement('div');
+	options.style.position = 'absolute';
+	options.style.top = '30px';
+	options.style.width = '100%';
+	options.style.textAlign = 'center';
+	options.innerHTML = 'Action:<input type="button" onclick="action1();" value="action1" />\
+	    <input type="button" onclick="action2();" value="action2" />\
+		<input type="button" onclick="action3();" value="action3" />';
+	container.appendChild(options);
+
+
 	// model
 	var onProgress = function(xhr) {
 		if (xhr.lengthComputable) {
@@ -64,8 +77,8 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	var modelFile = 'models/pmd/p9.pmd';
-	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
+	// var modelFile = 'models/pmd/p9.pmd';
+	var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
 	// var modelFile = 'models/default/miku.pmd';
 	// var modelFile = 'models/default/neru.pmd';
@@ -83,55 +96,63 @@ function init() {
 	// var motionFile = 'motion/kishimen.vmd';
 	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
-	var vmdFiles = ['motion/nof_motion/nof_haku.vmd'];
+	var vmdFiles = ['motion/nof_motion/nof_haku.vmd', 'motion/kishimen.vmd' ,'motion/wavefile_full_miku_v2.vmd'];
 
 	helper = new THREE.MMDHelper();
 	var loader = new THREE.MMDLoader();
 
-	loader.loadModel( modelFile, function ( object ) {
+	loader.loadModel(modelFile, function(object) {
 		mesh = object;
 		mesh.position.y = -10;
 		scene.add(mesh);
 
-		helper.add( mesh );
+		helper.add(mesh);
 
 		initGui();
-		loadMotion();
+		loadMotions();
+
+		initIk();
+		initPhysic();
+
+		initMorphControl();
+
 	}, onProgress, onError);
 
-	function loadMotion()
-	{
-		loader.loadVmd( motionFile, function ( object ) {
-			var vmd = object;
-			loader.pourVmdIntoModel(mesh,vmd);
+	function loadMotions() {
+		loader.loadVmds(vmdFiles, function(arr) {
+			var vmds = arr;
+			for (var i = 0; i < vmds.length; i++) {
+				loader.pourVmdIntoModel(mesh, vmds[i]);
+			}
 
 			//TYadd
 			helper.TYsetAnimation(mesh);
 			helper.TYsetikSolver(mesh);
 
-			helper.TYplayAction(mesh,mesh.geometry.animations[0],1);
 
 			console.log(mesh);
 			console.log(helper);
-
-			/*
-			 * Note: create CCDIKHelper after calling helper.setAnimation()
-			 */
-			ikHelper = new THREE.CCDIKHelper(mesh);
-			ikHelper.visible = false;
-			scene.add(ikHelper);
-			/*
-			 * Note: You're recommended to call helper.setPhysics()
-			 *       after calling helper.setAnimation().
-			 */
-			helper.setPhysics(mesh);
-			physicsHelper = new THREE.MMDPhysicsHelper(mesh);
-			physicsHelper.visible = false;
-			scene.add(physicsHelper);
-
-			initMorphControl();
-
 		}, onProgress, onError);
+	}
+
+	function initIk() {
+		/*
+		 * Note: create CCDIKHelper after calling helper.setAnimation()
+		 */
+		ikHelper = new THREE.CCDIKHelper(mesh);
+		ikHelper.visible = false;
+		scene.add(ikHelper);
+	}
+
+	function initPhysic() {
+		/*
+		 * Note: You're recommended to call helper.setPhysics()
+		 *       after calling helper.setAnimation().
+		 */
+		helper.setPhysics(mesh);
+		physicsHelper = new THREE.MMDPhysicsHelper(mesh);
+		physicsHelper.visible = false;
+		scene.add(physicsHelper);
 	}
 
 
@@ -315,6 +336,38 @@ function init() {
 		morphs.close();
 	}
 }
+
+
+function action1() {
+	fadeToAction(mesh.geometry.animations[0], 0.5, 1 ,0.5);
+}
+function action2() {
+	fadeToAction(mesh.geometry.animations[1], 0.5, 1 ,0.15);
+}
+function action3() {
+	fadeToAction(mesh.geometry.animations[2], 1, 1 ,0.4);
+}
+
+var currentAction;
+function fadeToAction(toClip, duration, weight , percent) {
+
+	if (currentAction == mesh.mixer.clipAction(toClip)) return;
+
+	var toAction = helper.TYgotoAndPlayAction(mesh, toClip, weight , percent);
+
+	if (!currentAction) {
+		currentAction = toAction;
+		return;
+	}
+
+	currentAction.crossFadeTo(toAction, duration, false);
+	setTimeout(function() {
+		currentAction.stop();
+		currentAction = toAction;
+	}, duration * 1000);
+};
+
+
 
 function onWindowResize() {
 	windowHalfX = window.innerWidth / 2;
