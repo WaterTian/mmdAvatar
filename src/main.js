@@ -1,7 +1,8 @@
 var container, stats;
 
 var mesh, camera, scene, renderer, effect;
-var helper, ikHelper, physicsHelper;
+var ikHelper, physicsHelper;
+var avatar;
 
 var clock = new THREE.Clock();
 
@@ -77,8 +78,8 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	// var modelFile = 'models/pmd/p9.pmd';
-	var modelFile = 'models/mmd/miku/miku_v2.pmd';
+	var modelFile = 'models/pmd/p9.pmd';
+	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
 	// var modelFile = 'models/default/miku.pmd';
 	// var modelFile = 'models/default/neru.pmd';
@@ -98,15 +99,17 @@ function init() {
 
 	var vmdFiles = ['motion/nof_motion/nof_haku.vmd', 'motion/kishimen.vmd' ,'motion/wavefile_full_miku_v2.vmd'];
 
-	helper = new THREE.MMDHelper();
+	
 	var loader = new THREE.MMDLoader();
+	avatar = new TY.MMDAvatar();
 
 	loader.loadModel(modelFile, function(object) {
-		mesh = object;
-		mesh.position.y = -10;
-		scene.add(mesh);
 
-		helper.add(mesh);
+		avatar.add(object);
+		scene.add(avatar.mesh);
+		avatar.mesh.position.y = -10;
+		mesh = avatar.mesh;
+
 
 		initGui();
 		loadMotions();
@@ -126,12 +129,12 @@ function init() {
 			}
 
 			//TYadd
-			helper.TYsetAnimation(mesh);
-			helper.TYsetikSolver(mesh);
+			avatar.TYsetAnimation(mesh);
+			avatar.TYsetikSolver(mesh);
 
 
 			console.log(mesh);
-			console.log(helper);
+			console.log(avatar);
 		}, onProgress, onError);
 	}
 
@@ -149,12 +152,12 @@ function init() {
 		 * Note: You're recommended to call helper.setPhysics()
 		 *       after calling helper.setAnimation().
 		 */
-		helper.setPhysics(mesh);
+		avatar.setPhysics(mesh);
 		physicsHelper = new THREE.MMDPhysicsHelper(mesh);
 		physicsHelper.visible = false;
 		scene.add(physicsHelper);
 
-		if(TY.isMobileDevice)helper.enablePhysics(false);
+		if(TY.isMobileDevice)avatar.enablePhysics(false);
 	}
 
 
@@ -294,7 +297,7 @@ function init() {
 				'show rigid bodies': false
 			};
 			gui.add(api, 'animation').onChange(function() {
-				helper.doAnimation = api['animation'];
+				avatar.doAnimation = api['animation'];
 			});
 			gui.add(api, 'gradient mapping').onChange(function() {
 				if (originalMaterials === undefined) originalMaterials = mesh.material;
@@ -307,7 +310,7 @@ function init() {
 			});
 
 			gui.add(api, 'ik').onChange(function() {
-				helper.doIk = api['ik'];
+				avatar.doIk = api['ik'];
 			});
 
 			gui.add(api, 'outline').onChange(function() {
@@ -315,11 +318,11 @@ function init() {
 			});
 
 			gui.add(api, 'physics').onChange(function() {
-				helper.enablePhysics(api['physics']);
+				avatar.enablePhysics(api['physics']);
 			});
 
 			gui.add(api, 'show IK bones').onChange(function() {
-				ikHelper.visible = api['show IK bones'];
+				ikavatar.visible = api['show IK bones'];
 			});
 
 			gui.add(api, 'show rigid bodies').onChange(function() {
@@ -356,7 +359,7 @@ function fadeToAction(toClip, duration, weight , percent) {
 
 	if (currentAction == mesh.mixer.clipAction(toClip)) return;
 
-	var toAction = helper.TYgotoAndPlayAction(mesh, toClip, weight , percent);
+	var toAction = avatar.TYgotoAndPlayAction(mesh, toClip, weight , percent);
 
 	if (!currentAction) {
 		currentAction = toAction;
@@ -392,7 +395,7 @@ function animate(time) {
 }
 
 function render() {
-	helper.animate(clock.getDelta());
+	if (avatar!== undefined) avatar.animate(clock.getDelta());
 	if (physicsHelper !== undefined && physicsHelper.visible) physicsHelper.update();
 	if (ikHelper !== undefined && ikHelper.visible) ikHelper.update();
 	effect.render(scene, camera);
