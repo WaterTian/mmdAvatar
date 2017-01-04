@@ -1,8 +1,9 @@
 /**
  * @author waterTian
  */
-TY.Gui = function(mesh) {
+TY.Gui = function(avatar) {
 
+	var mesh = avatar.mesh;
 	var gui = new dat.GUI();
 	var dictionary = mesh.morphTargetDictionary;
 	var controls = {};
@@ -87,11 +88,11 @@ TY.Gui = function(mesh) {
 		});
 
 		gui.add(api, 'show IK bones').onChange(function() {
-			ikavatar.visible = api['show IK bones'];
+			avatar.ikHelper.visible = api['show IK bones'];
 		});
 
 		gui.add(api, 'show rigid bodies').onChange(function() {
-			if (physicsHelper !== undefined) physicsHelper.visible = api['show rigid bodies'];
+			if (avatar.physicsHelper !== undefined) avatar.physicsHelper.visible = api['show rigid bodies'];
 		});
 	}
 

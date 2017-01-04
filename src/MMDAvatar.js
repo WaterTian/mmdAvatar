@@ -460,6 +460,9 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		this.animateCamera(delta);
 
+
+		if (this.physicsHelper !== undefined && this.physicsHelper.visible) this.physicsHelper.update();
+		if (this.ikHelper !== undefined && this.ikHelper.visible) this.ikHelper.update();
 	},
 
 	animateOneMesh: function(delta, mesh) {
@@ -548,9 +551,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 	animateCamera: function(delta) {
 
 		if (this.camera === null) {
-
 			return;
-
 		}
 
 		var mixer = this.camera.mixer;

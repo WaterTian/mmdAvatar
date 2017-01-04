@@ -78,7 +78,8 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	var modelFile = 'models/pmd/p9.pmd';
+	var modelFile = 'models/1/1.pmx';
+	// var modelFile = 'models/pmd/p9.pmd';
 	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
 	// var modelFile = 'models/default/miku.pmd';
@@ -113,7 +114,7 @@ function init() {
 		avatar.initIk();
 		avatar.initPhysic();
 
-		TY.Gui(mesh);
+		TY.Gui(avatar);
 		loadMotions();
 
 	}, onProgress, onError);
@@ -178,7 +179,7 @@ function init() {
 	function updateMorph() {
 		if (_morphNum >= TY.data.length) _morphNum = 0;
 
-		setTimeout(updateMorph, 500);
+		setTimeout(updateMorph, 1000);
 		setMorph(TY.data[_morphNum]);
 		_morphNum++;
 	}
@@ -250,7 +251,5 @@ function animate(time) {
 
 function render() {
 	if (avatar !== undefined) avatar.animate(clock.getDelta());
-	if (physicsHelper !== undefined && physicsHelper.visible) physicsHelper.update();
-	if (ikHelper !== undefined && ikHelper.visible) ikHelper.update();
 	effect.render(scene, camera);
 }
