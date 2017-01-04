@@ -1,8 +1,10 @@
 /**
  * @author waterTian
  */
-TY.MMDAvatar = function() {
+TY.MMDAvatar = function(scene) {
 
+	_MMDAvatar = this;
+	this.scene = scene;
 	this.mesh = null;
 	this.meshes = [];
 
@@ -17,6 +19,11 @@ TY.MMDAvatar = function() {
 
 	this.audioManager = null;
 	this.camera = null;
+
+	this.ikHelper = null;
+	this.physicsHelper = null;
+
+	this.currentAction = null;
 
 };
 
@@ -40,7 +47,34 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		this.meshes.push(mesh);
 		// workaround until I make IK and Physics Animation plugin
 		this.initBackupBones(mesh);
+
+		this.scene.add(this.mesh);
 	},
+
+
+	initIk: function() {
+		/*
+		 * Note: create CCDIKHelper after calling helper.setAnimation()
+		 */
+		this.ikHelper = new THREE.CCDIKHelper(this.mesh);
+		this.ikHelper.visible = false;
+		this.scene.add(this.ikHelper);
+	},
+
+	initPhysic: function() {
+		/*
+		 * Note: You're recommended to call helper.setPhysics()
+		 *       after calling helper.setAnimation().
+		 */
+		this.setPhysics(this.mesh);
+		this.physicsHelper = new THREE.MMDPhysicsHelper(this.mesh);
+		this.physicsHelper.visible = false;
+		this.scene.add(this.physicsHelper);
+
+		if (TY.isMobileDevice) this.enablePhysics(false);
+	},
+
+
 
 	setAudio: function(audio, listener, params) {
 
@@ -264,6 +298,27 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		action.play();
 		return action;
 	},
+
+
+	TYfadeToAction: function(mesh, toClip, duration, weight, percent) {
+
+		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
+
+		var toAction = this.TYgotoAndPlayAction(mesh, toClip, weight, percent);
+
+		if (!this.currentAction) {
+			this.currentAction = toAction;
+			return;
+		}
+
+		this.currentAction.crossFadeTo(toAction, duration, false);
+		setTimeout(function() {
+			_MMDAvatar.currentAction.stop();
+			_MMDAvatar.currentAction = toAction;
+		}, duration * 1000);
+
+	},
+
 
 	setCameraAnimation: function(camera) {
 
