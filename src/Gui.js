@@ -80,7 +80,7 @@ TY.Gui = function(avatar) {
 		});
 
 		gui.add(api, 'outline').onChange(function() {
-			effect.enabled = api['outline'];
+			TY.effect.enabled = api['outline'];
 		});
 
 		gui.add(api, 'physics').onChange(function() {

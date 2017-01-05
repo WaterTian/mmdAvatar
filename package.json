@@ -8,14 +8,14 @@
 		"grunt-contrib-uglify": "^2.0.0"
 	},
 	"libs": [
-	    "js/controls/OrbitControls.js",
-	    "js/libs/charsetencoder.min.js",
+	    "js/libs/mmdparser.min.js",
 	    "js/libs/ammo.js",
 	    "js/loaders/TGALoader.js",
 	    "js/loaders/MMDLoader.js",
 	    "js/effects/OutlineEffect.js",
 	    "js/animation/CCDIKSolver.js",
 	    "js/animation/MMDPhysics.js",
+	    "js/controls/OrbitControls.js",
 	    "js/Detector.js",
 	    "js/libs/Tween.js",
 	    "js/libs/stats.min.js",
@@ -24,6 +24,9 @@
 	"main": [
 		"src/core/TY.js",
 		"src/core/utils.js",
-		"src/core/EventDispatcher.js"
+		"src/core/EventDispatcher.js",
+		"src/MMDAvatar.js",
+		"src/Gui.js",
+		"src/main.js"
 	]
 }

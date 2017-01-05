@@ -1,7 +1,6 @@
 var container, stats;
 
-var mesh, camera, scene, renderer, effect;
-var ikHelper, physicsHelper;
+var mesh, camera, scene, renderer;
 var avatar;
 
 var clock = new THREE.Clock();
@@ -43,7 +42,7 @@ function init() {
 	container.appendChild(renderer.domElement);
 
 	// effect
-	effect = new THREE.OutlineEffect(renderer);
+	TY.effect = new THREE.OutlineEffect(renderer);
 
 	// controls, camera
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -237,7 +236,7 @@ function onWindowResize() {
 	camera.aspect = window.innerWidth / window.innerHeight;
 	camera.updateProjectionMatrix();
 
-	effect.setSize(window.innerWidth, window.innerHeight);
+	TY.effect.setSize(window.innerWidth, window.innerHeight);
 }
 
 //
@@ -251,5 +250,5 @@ function animate(time) {
 
 function render() {
 	if (avatar !== undefined) avatar.animate(clock.getDelta());
-	effect.render(scene, camera);
+	TY.effect.render(scene, camera);
 }

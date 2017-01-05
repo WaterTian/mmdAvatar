@@ -20,8 +20,8 @@ TY.MMDAvatar = function(scene) {
 	this.audioManager = null;
 	this.camera = null;
 
-	this.ikHelper = null;
-	this.physicsHelper = null;
+	this.ikHelper;
+	this.physicsHelper;
 
 	this.currentAction = null;
 
@@ -458,8 +458,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		if (this.sharedPhysics) this.updateSharedPhysics(delta);
 
-		this.animateCamera(delta);
-
+		// this.animateCamera(delta);
 
 		if (this.physicsHelper !== undefined && this.physicsHelper.visible) this.physicsHelper.update();
 		if (this.ikHelper !== undefined && this.ikHelper.visible) this.ikHelper.update();
