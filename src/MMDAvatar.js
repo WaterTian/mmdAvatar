@@ -3,7 +3,6 @@
  */
 TY.MMDAvatar = function(scene) {
 
-	_MMDAvatar = this;
 	this.scene = scene;
 	this.mesh = null;
 	this.meshes = [];
@@ -302,6 +301,8 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 	TYfadeToAction: function(mesh, toClip, duration, weight, percent) {
 
+		var scope = this;
+
 		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
 
 		var toAction = this.TYgotoAndPlayAction(mesh, toClip, weight, percent);
@@ -313,8 +314,8 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		this.currentAction.crossFadeTo(toAction, duration, false);
 		setTimeout(function() {
-			_MMDAvatar.currentAction.stop();
-			_MMDAvatar.currentAction = toAction;
+			scope.currentAction.stop();
+			scope.currentAction = toAction;
 		}, duration * 1000);
 
 	},
