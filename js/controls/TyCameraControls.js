@@ -3,11 +3,15 @@
  *
  */
 
-THREE.TyCameraControls = function ( object ) {
+THREE.TyCameraControls = function ( object ,domElement) {
 
 	var scope = this;
 
 	this.object = object;
+	this.domElement = ( domElement !== undefined ) ? domElement : document;
+
+	this.target = new THREE.Vector3();
+
 	this.object.rotation.reorder( "YXZ" );
 	this.freeze = true;
 	this.deviceOrientation = {};
@@ -115,13 +119,13 @@ THREE.TyCameraControls = function ( object ) {
 		window.addEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 		window.addEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
-		document.addEventListener( 'touchstart', touchstart, false );
-		document.addEventListener( 'touchend', touchend, false );
-		document.addEventListener( 'touchmove', touchmove, false );
+		scope.domElement.addEventListener( 'touchstart', touchstart, false );
+		scope.domElement.addEventListener( 'touchend', touchend, false );
+		scope.domElement.addEventListener( 'touchmove', touchmove, false );
 
-		document.addEventListener( 'mousedown', onDocumentMouseDown, false );
-		document.addEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.addEventListener( 'mouseup', onDocumentMouseUp, false );
+		scope.domElement.addEventListener( 'mousedown', onDocumentMouseDown, false );
+		scope.domElement.addEventListener( 'mousemove', onDocumentMouseMove, false );
+		scope.domElement.addEventListener( 'mouseup', onDocumentMouseUp, false );
 
 		scope.freeze = false;
 	};
@@ -133,13 +137,13 @@ THREE.TyCameraControls = function ( object ) {
 		window.removeEventListener( 'orientationchange', onScreenOrientationChangeEvent, false );
 		window.removeEventListener( 'deviceorientation', onDeviceOrientationChangeEvent, false );
 
-		document.removeEventListener( 'touchstart', touchstart, false );
-		document.removeEventListener( 'touchend', touchend, false );
-		document.removeEventListener( 'touchmove', touchmove, false );
+		scope.domElement.removeEventListener( 'touchstart', touchstart, false );
+		scope.domElement.removeEventListener( 'touchend', touchend, false );
+		scope.domElement.removeEventListener( 'touchmove', touchmove, false );
 
-		document.removeEventListener( 'mousedown', onDocumentMouseDown, false );
-		document.removeEventListener( 'mousemove', onDocumentMouseMove, false );
-		document.removeEventListener( 'mouseup', onDocumentMouseUp, false );
+		scope.domElement.removeEventListener( 'mousedown', onDocumentMouseDown, false );
+		scope.domElement.removeEventListener( 'mousemove', onDocumentMouseMove, false );
+		scope.domElement.removeEventListener( 'mouseup', onDocumentMouseUp, false );
 	};
 
 	this.update = function () {
@@ -160,14 +164,14 @@ THREE.TyCameraControls = function ( object ) {
 
 		}else{
 			
-			lat = Math.max( - 85, Math.min( 85, lat ) );
-			phi = THREE.Math.degToRad( 90 - lat );
-			theta = THREE.Math.degToRad( lon );
+			// lat = Math.max( - 85, Math.min( 85, lat ) );
+			// phi = THREE.Math.degToRad( 90 - lat );
+			// theta = THREE.Math.degToRad( lon );
 
-			camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
-			camera.target.y = 500 * Math.cos( phi );
-			camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
-			camera.lookAt( camera.target );
+			// camera.target.x = 500 * Math.sin( phi ) * Math.cos( theta );
+			// camera.target.y = 500 * Math.cos( phi );
+			// camera.target.z = 500 * Math.sin( phi ) * Math.sin( theta );
+			// camera.lookAt( camera.target );
 		}
 
 	};
