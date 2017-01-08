@@ -133,12 +133,11 @@ THREE.TyOrbitControls = function(object, domElement) {
 		var euler = new THREE.Euler();
 		var _euler = new THREE.Euler();
 		var q0 = new THREE.Quaternion();
+		var _q0 = new THREE.Quaternion();
 		var _alpha = 0,
-			_beta = 0,
-			_gamma = 0;
+			_beta = 0;
 		var _alphaDelta = 0,
-			_betaDelta = 0,
-			_gammaDelta = 0;
+			_betaDelta = 0;
 
 
 		return function update() {
@@ -153,22 +152,28 @@ THREE.TyOrbitControls = function(object, domElement) {
 				euler.set(alpha, beta, -gamma, 'XYZ');
 				q0.setFromEuler(euler);
 
-				_euler.setFromQuaternion(q0);
-
+				
+				// q0.slerp( _q0 );  
 
 				// scene.setRotationFromEuler(euler);
 				// scene.setRotationFromQuaternion(q0);
 
 
-				// TY.logBox.innerHTML = alpha + "<br>" + beta + "<br>" + gamma;
-				TY.logBox.innerHTML = _euler.x + "<br>" + _euler.y + "<br>" + _euler.z;
+				TY.logBox.innerHTML = alpha + "<br>" + beta + "<br>" + gamma + "<br>";
+				TY.logBox.innerHTML += _euler.x + "<br>" + _euler.y + "<br>" + _euler.z + "<br>";
 
 				_alphaDelta = alpha - _alpha;
 				_betaDelta = beta - _beta;
-
 				_alpha = alpha;
 				_beta = beta;
-				_gamma = gamma;
+
+
+
+				// _alphaDelta = _euler.x - euler.x;
+				// _betaDelta = _euler.y - euler.y;
+				// _euler.setFromQuaternion(q0);
+				// _q0 = q0;
+
 			}
 
 
@@ -179,13 +184,14 @@ THREE.TyOrbitControls = function(object, domElement) {
 
 			// rotate offset to "y-axis-is-up" space
 			offset.applyQuaternion(quat);
-			
+
 
 			// angle from z-axis around y-axis
 			spherical.setFromVector3(offset);
 
-			// spherical.theta += _alphaDelta;
-			// spherical.phi += _betaDelta;
+			//TYadd
+			spherical.theta += _alphaDelta;
+			spherical.phi += _betaDelta;
 
 			if (scope.autoRotate && state === STATE.NONE) {
 				rotateLeft(getAutoRotationAngle());
@@ -218,7 +224,7 @@ THREE.TyOrbitControls = function(object, domElement) {
 
 			// rotate offset back to "camera-up-vector-is-up" space
 			offset.applyQuaternion(quatInverse);
-			
+
 
 
 			position.copy(scope.target).add(offset);
