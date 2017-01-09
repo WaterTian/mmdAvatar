@@ -15,7 +15,7 @@
 	    "js/effects/OutlineEffect.js",
 	    "js/animation/CCDIKSolver.js",
 	    "js/animation/MMDPhysics.js",
-	    "js/controls/OrbitControls.js",
+	    "js/controls/TyOrbitControls.js",
 	    "js/Detector.js",
 	    "js/libs/Tween.js",
 	    "js/libs/stats.min.js",

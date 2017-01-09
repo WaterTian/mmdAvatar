@@ -194,7 +194,6 @@ TY.EventDispatcher.prototype = {
  */
 TY.MMDAvatar = function(scene) {
 
-	_MMDAvatar = this;
 	this.scene = scene;
 	this.mesh = null;
 	this.meshes = [];
@@ -493,6 +492,8 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 	TYfadeToAction: function(mesh, toClip, duration, weight, percent) {
 
+		var scope = this;
+
 		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
 
 		var toAction = this.TYgotoAndPlayAction(mesh, toClip, weight, percent);
@@ -504,8 +505,8 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		this.currentAction.crossFadeTo(toAction, duration, false);
 		setTimeout(function() {
-			_MMDAvatar.currentAction.stop();
-			_MMDAvatar.currentAction = toAction;
+			scope.currentAction.stop();
+			scope.currentAction = toAction;
 		}, duration * 1000);
 
 	},
@@ -993,6 +994,8 @@ TY.Gui.prototype = Object.assign(TY.EventDispatcher.prototype, {
 });
 var container, stats;
 
+var loading;
+
 var mesh, camera, scene, renderer;
 var avatar;
 
@@ -1037,11 +1040,36 @@ function init() {
 	// effect
 	TY.effect = new THREE.OutlineEffect(renderer);
 
+
+	//log
+	logBox = document.createElement('div');
+	logBox.style.position = 'absolute';
+	logBox.style.top = '90px';
+	logBox.style.width = '100%';
+	logBox.style.textAlign = 'left';
+	logBox.innerHTML = '...';
+	container.appendChild(logBox);
+	TY.logBox=logBox;
+
+
+
 	// controls, camera
-	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	// controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls = new THREE.TyOrbitControls(camera, renderer.domElement);
 	controls.target.set(0, 0, 0);
-	camera.position.set(2, 18, 28);
 	controls.update();
+
+
+	//Loading
+	loading = document.createElement('div');
+	loading.style.position = 'absolute';
+	loading.style.top = '60px';
+	loading.style.width = '100%';
+	loading.style.textAlign = 'center';
+	loading.innerHTML = 'Loading..';
+	container.appendChild(loading);
+
+
 
 	// STATS
 	stats = new Stats();
@@ -1064,13 +1092,15 @@ function init() {
 	var onProgress = function(xhr) {
 		if (xhr.lengthComputable) {
 			var percentComplete = xhr.loaded / xhr.total * 100;
-			console.log(Math.round(percentComplete, 2) + '% downloaded');
+			var pr = "loading " + Math.round(percentComplete, 2);
+			console.log(pr);
+			loading.innerHTML = pr;
 		}
 	};
 
 	var onError = function(xhr) {};
 
-	var modelFile = 'models/1/1.pmx';
+	// var modelFile = 'models/1/1.pmx';
 	// var modelFile = 'models/pmd/p9.pmd';
 	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
@@ -1082,7 +1112,7 @@ function init() {
 	// var modelFile = 'models/default/meiko_sakine.pmd';
 	// var modelFile = 'models/default/MEIKO.pmd';
 	// var modelFile = 'models/default/haku.pmd';
-	// var modelFile = 'models/low_miku/miku.pmd';
+	var modelFile = 'models/low_miku/miku.pmd';
 
 	// var motionFile = 'motion/nof_motion/nof_haku.vmd';
 	var motionFile = 'motion/wavefile_v2.vmd';
@@ -1102,6 +1132,7 @@ function init() {
 		avatar.add(object);
 		mesh = avatar.mesh;
 		mesh.position.y = -10;
+
 
 		avatar.initIk();
 		avatar.initPhysic();
@@ -1127,6 +1158,8 @@ function init() {
 
 			console.log(mesh);
 			console.log(avatar);
+
+			loading.style.display="none";
 		}, onProgress, onError);
 	}
 

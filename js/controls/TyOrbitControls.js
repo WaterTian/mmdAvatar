@@ -159,7 +159,6 @@ THREE.TyOrbitControls = function(object, domElement) {
 			// rotate offset to "y-axis-is-up" space
 			offset.applyQuaternion(quat);
 
-
 			// angle from z-axis around y-axis
 			spherical.setFromVector3(offset);
 

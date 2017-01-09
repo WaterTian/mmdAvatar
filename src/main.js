@@ -144,7 +144,7 @@ function init() {
 		avatar.initPhysic();
 
 		TY.Gui(avatar);
-		// loadMotions();
+		loadMotions();
 
 	}, onProgress, onError);
 
