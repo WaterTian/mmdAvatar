@@ -126,19 +126,12 @@ THREE.TyOrbitControls = function(object, domElement) {
 		var quatInverse = quat.clone().inverse();
 
 
-
 		var lastPosition = new THREE.Vector3();
 		var lastQuaternion = new THREE.Quaternion();
 
 		var euler = new THREE.Euler();
-		var _euler = new THREE.Euler();
 		var q0 = new THREE.Quaternion();
-		var _q0 = new THREE.Quaternion();
-		var _alpha = 0,
-			_beta = 0;
-		var _alphaDelta = 0,
-			_betaDelta = 0;
-
+		var q1 = new THREE.Quaternion( Math.sqrt( 0.5 ), 0, 0, Math.sqrt( 0.5 ) ); //  PI/2 around the x-axis
 
 		return function update() {
 
@@ -149,31 +142,12 @@ THREE.TyOrbitControls = function(object, domElement) {
 
 			if (alpha != 0 || beta != 0 || gamma != 0) {
 				// 'ZXY' for the device, but 'YXZ' for us
-				euler.set(alpha, beta, -gamma, 'XYZ');
-				q0.setFromEuler(euler);
+				euler.set( -beta, alpha, gamma, 'YXZ' ); 
+				q0.setFromEuler( euler ); 
+				q0.multiply( q1 );  
 
-				
-				// q0.slerp( _q0 );  
-
-				// scene.setRotationFromEuler(euler);
-				// scene.setRotationFromQuaternion(q0);
-
-
-				TY.logBox.innerHTML = alpha + "<br>" + beta + "<br>" + gamma + "<br>";
-				TY.logBox.innerHTML += _euler.x + "<br>" + _euler.y + "<br>" + _euler.z + "<br>";
-
-				_alphaDelta = alpha - _alpha;
-				_betaDelta = beta - _beta;
-				_alpha = alpha;
-				_beta = beta;
-
-
-
-				// _alphaDelta = _euler.x - euler.x;
-				// _betaDelta = _euler.y - euler.y;
-				// _euler.setFromQuaternion(q0);
-				// _q0 = q0;
-
+				/////////////////////////////////////////
+				scene.setRotationFromQuaternion(q0);
 			}
 
 
@@ -189,9 +163,6 @@ THREE.TyOrbitControls = function(object, domElement) {
 			// angle from z-axis around y-axis
 			spherical.setFromVector3(offset);
 
-			//TYadd
-			spherical.theta += _alphaDelta;
-			spherical.phi += _betaDelta;
 
 			if (scope.autoRotate && state === STATE.NONE) {
 				rotateLeft(getAutoRotationAngle());
