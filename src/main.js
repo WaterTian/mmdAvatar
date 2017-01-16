@@ -90,7 +90,8 @@ function init() {
 	options.style.textAlign = 'center';
 	options.innerHTML = 'Action:<input type="button" onclick="action1();" value="action1" />\
 	    <input type="button" onclick="action2();" value="action2" />\
-		<input type="button" onclick="action3();" value="action3" />';
+	    <input type="button" onclick="action3();" value="action3" />\
+		<input type="button" onclick="action4();" value="action4" />';
 	container.appendChild(options);
 
 
@@ -126,8 +127,10 @@ function init() {
 	// var motionFile = 'motion/kishimen.vmd';
 	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
-	var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
-	// var vmdFiles = ['motion/wavefile_v2.vmd'];
+	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/04.vmd','models/H5shuchu/05.vmd','models/H5shuchu/06.vmd','models/H5shuchu/07.vmd','models/H5shuchu/08.vmd','models/H5shuchu/09.vmd','models/H5shuchu/10.vmd','models/H5shuchu/11.vmd'];
+	var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/04.vmd','models/H5shuchu/05.vmd','models/H5shuchu/06.vmd','models/H5shuchu/07.vmd','models/H5shuchu/08.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd'];
 
 
 
@@ -173,7 +176,9 @@ function init() {
 
 	function initMorphControl() {
 		configMorphDate();
-		// updateMorph();
+		updateMorph();
+
+		logMorphString();
 	}
 
 	var newKeys = [];
@@ -249,17 +254,19 @@ function init() {
 
 
 function action1() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[0], 0.5, 1, 0.5);
+	avatar.TYfadeToAction(mesh,mesh.geometry.animations[0], 0.5, 1, 1);
 }
 
 function action2() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[1], 0.5, 1, 0.15);
+	avatar.TYfadeToAction(mesh,mesh.geometry.animations[1], 0.5, 1, 1);
 }
 
 function action3() {
 	avatar.TYfadeToAction(mesh,mesh.geometry.animations[2], 1, 1, 0.4);
 }
-
+function action4() {
+	avatar.TYfadeToAction(mesh,mesh.geometry.animations[3], 1, 1, 0.4);
+}
 
 
 function onWindowResize() {
