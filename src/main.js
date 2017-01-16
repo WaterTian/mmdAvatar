@@ -106,7 +106,7 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	// var modelFile = 'models/1/1.pmx';
+	var modelFile = 'models/H5shuchu/nande.pmx';
 	// var modelFile = 'models/pmd/p9.pmd';
 	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
@@ -118,7 +118,7 @@ function init() {
 	// var modelFile = 'models/default/meiko_sakine.pmd';
 	// var modelFile = 'models/default/MEIKO.pmd';
 	// var modelFile = 'models/default/haku.pmd';
-	var modelFile = 'models/low_miku/miku.pmd';
+	// var modelFile = 'models/low_miku/miku.pmd';
 
 	// var motionFile = 'motion/nof_motion/nof_haku.vmd';
 	var motionFile = 'motion/wavefile_v2.vmd';
@@ -126,7 +126,8 @@ function init() {
 	// var motionFile = 'motion/kishimen.vmd';
 	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
-	var vmdFiles = ['motion/nof_motion/nof_haku.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
+	var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
+	// var vmdFiles = ['motion/wavefile_v2.vmd'];
 
 
 
@@ -172,7 +173,7 @@ function init() {
 
 	function initMorphControl() {
 		configMorphDate();
-		updateMorph();
+		// updateMorph();
 	}
 
 	var newKeys = [];
