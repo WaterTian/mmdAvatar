@@ -217,7 +217,7 @@ function init() {
 	function updateMorph() {
 		// if (_morphNum >= TY.data.length) _morphNum = 0;
 
-		// setTimeout(updateMorph, 200);
+		setTimeout(updateMorph, 500);
 		setMorph(TY.data);
 		setMorphOther(TY.data);
 		// _morphNum++;

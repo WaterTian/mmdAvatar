@@ -16,12 +16,13 @@ document.body.appendChild(playerDiv);
 var player = jwplayer(playerDiv);
 player.setup({
 	// file: 'assets/index.m3u8',
-	file: 'http://101.201.107.35:9380/123.m3u8',
+	file: 'http://101.201.107.35:9380/12345.m3u8',
 	hlshtml: true,
 	autostart: true,
-	height: 30,
+	height: 300,
 	width: 300
 });
+
 
 player.on('ready', function() {
 	console.log("JWready");
@@ -34,14 +35,13 @@ player.on('meta', function(event) {
 	var _d="["+data+"]";
 	var arr = eval(_d); 
 
-	// TY.data[1]=arr;
-	updateMorph();
-
-
 	addLog(arr);
+
+	TY.data=arr;
+	
 });
 
 function addLog(data) {
 	console.log(data);
-	// TY.logBox.innerHTML += JSON.stringify(data) + "<br>";
+	TY.logBox.innerHTML += JSON.stringify(data) + "<br>";
 }
