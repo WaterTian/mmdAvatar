@@ -297,27 +297,44 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		action.play();
 		return action;
 	},
+	TYgotoAndStopAction: function(mesh, clip, weight, percent) {
+		var action = mesh.mixer.clipAction(clip);
+		action.setEffectiveWeight(weight);
+		if (!action.isRunning()) action.play();
+		// paused
+		action.paused = true;
+		action.time = clip.duration * 0.5 * percent;
+		return action;
+	},
 
 
 	TYfadeToAction: function(mesh, toClip, duration, weight, percent) {
-
 		var scope = this;
-
 		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
-
 		var toAction = this.TYgotoAndPlayAction(mesh, toClip, weight, percent);
-
 		if (!this.currentAction) {
 			this.currentAction = toAction;
 			return;
 		}
-
 		this.currentAction.crossFadeTo(toAction, duration, false);
 		setTimeout(function() {
 			scope.currentAction.stop();
 			scope.currentAction = toAction;
 		}, duration * 1000);
-
+	},
+	TYfadeToStopAction: function(mesh, toClip, duration, weight, percent) {
+		var scope = this;
+		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
+		var toAction = this.TYgotoAndStopAction(mesh, toClip, weight, percent);
+		if (!this.currentAction) {
+			this.currentAction = toAction;
+			return;
+		}
+		this.currentAction.crossFadeTo(toAction, duration, false);
+		setTimeout(function() {
+			scope.currentAction.stop();
+			scope.currentAction = toAction;
+		}, duration * 1000);
 	},
 
 

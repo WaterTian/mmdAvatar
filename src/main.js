@@ -55,7 +55,7 @@ function init() {
 	logBox.style.textAlign = 'left';
 	logBox.innerHTML = '...';
 	container.appendChild(logBox);
-	TY.logBox=logBox;
+	TY.logBox = logBox;
 
 
 
@@ -128,8 +128,8 @@ function init() {
 	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
 	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
-	// var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/04.vmd','models/H5shuchu/05.vmd','models/H5shuchu/06.vmd','models/H5shuchu/07.vmd','models/H5shuchu/08.vmd','models/H5shuchu/09.vmd','models/H5shuchu/10.vmd','models/H5shuchu/11.vmd'];
-	var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/04.vmd','models/H5shuchu/05.vmd','models/H5shuchu/06.vmd','models/H5shuchu/07.vmd','models/H5shuchu/08.vmd'];
+	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/11.vmd'];
 	// var vmdFiles = ['models/H5shuchu/01.vmd'];
 
 
@@ -169,7 +169,7 @@ function init() {
 			console.log(mesh);
 			console.log(avatar);
 
-			loading.style.display="none";
+			loading.style.display = "none";
 		}, onProgress, onError);
 	}
 
@@ -181,6 +181,8 @@ function init() {
 		logMorphString();
 	}
 
+
+	/////////////////////////////////////////
 	var newKeys = [];
 
 	function configMorphDate() {
@@ -216,20 +218,22 @@ function init() {
 	function updateMorph() {
 		if (_morphNum >= TY.data.length) _morphNum = 0;
 
-		setTimeout(updateMorph, 1000);
+		setTimeout(updateMorph, 200);
 		setMorph(TY.data[_morphNum]);
+
+		setMorphOther(TY.data[_morphNum]);
 		_morphNum++;
 	}
 
 
-	var cunData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+	var cunData = TY.data[0];
 	var cunObj = TY.toObject(cunData);
 
 	function setMorph(arr) {
 		var _arr = configControlDate(arr);
 		var toObj = TY.toObject(_arr);
 		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 200)
+			.to(toObj, 100)
 			.start()
 			.onUpdate(function() {
 				for (var i = 0; i < _arr.length; i++) {
@@ -237,6 +241,16 @@ function init() {
 				}
 			});
 	}
+
+	function setMorphOther(arr) {
+		var _arr = arr.slice(TY.morphConifg.length, arr.length);
+		for (var i = 0; i < _arr.length; i++) {
+			if (i < mesh.geometry.animations.length) {
+				avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
+			}
+		}
+	}
+
 
 
 	function logMorphString() {
@@ -254,18 +268,19 @@ function init() {
 
 
 function action1() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[0], 0.5, 1, 1);
+	avatar.TYfadeToAction(mesh, mesh.geometry.animations[0], 0.5, 1, 1);
 }
 
 function action2() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[1], 0.5, 1, 1);
+	avatar.TYfadeToStopAction(mesh, mesh.geometry.animations[1],1, 1, 1);
 }
 
 function action3() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[2], 1, 1, 0.4);
+	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[2], 1, 1);
 }
+
 function action4() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[3], 1, 1, 0.4);
+	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[3], 1,1);
 }
 
 
@@ -286,6 +301,8 @@ function animate(time) {
 	render();
 	TWEEN.update(time);
 	if (stats) stats.update();
+
+	// if (avatar.currentAction) console.log(avatar.currentAction.time);
 }
 
 function render() {
