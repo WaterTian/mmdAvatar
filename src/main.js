@@ -242,13 +242,22 @@ function init() {
 			});
 	}
 
+	var cunOtherData = TY.data[0].slice(TY.morphConifg.length, TY.data[0].length);
+	var cunOtherObj = TY.toObject(cunOtherData);
+
 	function setMorphOther(arr) {
 		var _arr = arr.slice(TY.morphConifg.length, arr.length);
-		for (var i = 0; i < _arr.length; i++) {
-			if (i < mesh.geometry.animations.length) {
-				avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
-			}
-		}
+		var toObj = TY.toObject(_arr);
+		var tween = new TWEEN.Tween(cunOtherObj)
+			.to(toObj, 100)
+			.start()
+			.onUpdate(function() {
+				for (var i = 0; i < _arr.length; i++) {
+					if (i < mesh.geometry.animations.length) {
+						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
+					}
+				}
+			});
 	}
 
 
@@ -272,7 +281,7 @@ function action1() {
 }
 
 function action2() {
-	avatar.TYfadeToStopAction(mesh, mesh.geometry.animations[1],1, 1, 1);
+	avatar.TYfadeToStopAction(mesh, mesh.geometry.animations[1], 1, 1, 1);
 }
 
 function action3() {
@@ -280,7 +289,7 @@ function action3() {
 }
 
 function action4() {
-	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[3], 1,1);
+	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[3], 1, 1);
 }
 
 
