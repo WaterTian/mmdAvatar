@@ -60,8 +60,8 @@ function init() {
 
 
 	// controls, camera
-	// controls = new THREE.OrbitControls(camera, renderer.domElement);
-	controls = new THREE.TyOrbitControls(camera, renderer.domElement);
+	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	// controls = new THREE.TyOrbitControls(camera, renderer.domElement);
 	controls.target.set(0, 0, 0);
 	controls.update();
 
@@ -213,20 +213,18 @@ function init() {
 	}
 
 
-	var _morphNum = 0;
-
+	// var _morphNum = 0;
 	function updateMorph() {
-		if (_morphNum >= TY.data.length) _morphNum = 0;
+		// if (_morphNum >= TY.data.length) _morphNum = 0;
 
-		setTimeout(updateMorph, 200);
-		setMorph(TY.data[_morphNum]);
-
-		setMorphOther(TY.data[_morphNum]);
-		_morphNum++;
+		// setTimeout(updateMorph, 200);
+		setMorph(TY.data);
+		setMorphOther(TY.data);
+		// _morphNum++;
 	}
 
 
-	var cunData = TY.data[0];
+	var cunData = TY.data;
 	var cunObj = TY.toObject(cunData);
 
 	function setMorph(arr) {
@@ -242,7 +240,7 @@ function init() {
 			});
 	}
 
-	var cunOtherData = TY.data[0].slice(TY.morphConifg.length, TY.data[0].length);
+	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
 	var cunOtherObj = TY.toObject(cunOtherData);
 
 	function setMorphOther(arr) {
