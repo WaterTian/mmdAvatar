@@ -213,18 +213,26 @@ function init() {
 	}
 
 
-	// var _morphNum = 0;
-	function updateMorph() {
-		// if (_morphNum >= TY.data.length) _morphNum = 0;
+	var _morphNum = 0;
 
-		setTimeout(updateMorph, 500);
-		setMorph(TY.data);
-		setMorphOther(TY.data);
-		// _morphNum++;
+	function updateMorph() {
+		if (_morphNum >= TY.data.length) _morphNum = 0;
+
+		setTimeout(updateMorph, 200);
+		setMorph(TY.data[_morphNum]);
+		setMorphOther(TY.data[_morphNum]);
+		_morphNum++;
 	}
 
+	// function updateMorph() {
+	// 	// setTimeout(updateMorph, 500);
+	// 	setMorph(TY.data);
+	// 	setMorphOther(TY.data);
+	// }
 
-	var cunData = TY.data;
+
+
+	var cunData = TY.data[0];
 	var cunObj = TY.toObject(cunData);
 
 	function setMorph(arr) {
@@ -240,12 +248,13 @@ function init() {
 			});
 	}
 
-	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
+	var cunOtherData = TY.data[0].slice(TY.morphConifg.length, TY.data[0].length);
 	var cunOtherObj = TY.toObject(cunOtherData);
 
 	function setMorphOther(arr) {
 		var _arr = arr.slice(TY.morphConifg.length, arr.length);
 		var toObj = TY.toObject(_arr);
+
 		var tween = new TWEEN.Tween(cunOtherObj)
 			.to(toObj, 100)
 			.start()
@@ -256,6 +265,12 @@ function init() {
 					}
 				}
 			});
+
+		// for (var i = 0; i < _arr.length; i++) {
+		// 	if (i < mesh.geometry.animations.length) {
+		// 		avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
+		// 	}
+		// }
 	}
 
 

@@ -299,11 +299,26 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 	},
 	TYgotoAndStopAction: function(mesh, clip, weight, percent) {
 		var action = mesh.mixer.clipAction(clip);
-		action.setEffectiveWeight(weight);
-		if (!action.isRunning()) action.play();
+		// action.setEffectiveWeight(weight);
+
 		// paused
 		action.paused = true;
-		action.time = clip.duration * 0.5 * percent;
+		var toTime = clip.duration * 0.5 * percent;
+
+
+		if (toTime == 0) {
+			if (action.time != 0) action.time = 0;
+			// action.stop();
+			if (action.isScheduled()) mesh.mixer._deactivateAction(action);
+		} else {
+			if (!action.isScheduled()) {
+				// action.play();
+				// action.startAt(toTime);
+				mesh.mixer._activateAction(action);
+			}
+			if (action.time != toTime) action.time = toTime;
+		}
+
 		return action;
 	},
 

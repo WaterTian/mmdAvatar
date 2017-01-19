@@ -38263,7 +38263,6 @@
 							actionsForClip && actionsForClip.knownActions[ 0 ] );
 
 					this._addInactiveAction( action, clipUuid, rootUuid );
-
 				}
 
 				var bindings = action._propertyBindings;
