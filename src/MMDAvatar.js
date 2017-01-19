@@ -293,7 +293,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 	TYgotoAndPlayAction: function(mesh, clip, weight, percent) {
 		var action = mesh.mixer.clipAction(clip);
 		action.setEffectiveWeight(weight);
-		action.time = clip.duration * 0.5 * percent;
+		action.time = clip.duration * 0.5 * percent*0.01;
 		action.play();
 		return action;
 	},
@@ -303,7 +303,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		// paused
 		action.paused = true;
-		var toTime = clip.duration * 0.5 * percent;
+		var toTime = clip.duration * 0.5 * percent*0.01;
 
 
 		if (toTime == 0) {

@@ -22,8 +22,8 @@ container.appendChild(options);
 
 var player = jwplayer(playerDiv);
 player.setup({
-	file: 'assets/index.m3u8',
-	// file: 'http://101.201.107.35:9380/799.m3u8',
+	// file: 'assets/index.m3u8',
+	file: 'http://101.201.107.35:9380/913.m3u8',
 	hlshtml: true,
 	// autostart: true,
 	height: 100,
@@ -31,26 +31,25 @@ player.setup({
 });
 
 
-function toplay()
-{
+function toplay() {
 	addLog("toplay");
 	player.play();
 }
 
 player.on('ready', function() {
-	addLog("JWready ready");
+	addLog("JW ready");
 });
 
 
 player.on('meta', function(event) {
-	// var data=event.metadata["PRIV"]["com.appMagics"];
-	// var _d="["+data+"]";
-	// var arr = eval(_d); 
+	var _obj = event.metadata['PRIV'];
+	var _key = Object.keys(_obj)[0];
+	var _str = TY.base64decode(_key);
+	var _Arr = TY.toUnicodeArr(_str);
 
-	addLog(event.metadata);
+	TY.data = _Arr;
 
-	// TY.data=arr;
-	
+	// addLog(TY.data);
 });
 
 function addLog(data) {

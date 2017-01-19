@@ -128,8 +128,8 @@ function init() {
 	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
 
 	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
-	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
-	// var vmdFiles = ['models/H5shuchu/01.vmd','models/H5shuchu/02.vmd','models/H5shuchu/03.vmd','models/H5shuchu/11.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
+	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd'];
 	// var vmdFiles = ['models/H5shuchu/01.vmd'];
 
 
@@ -215,24 +215,24 @@ function init() {
 
 	var _morphNum = 0;
 
-	function updateMorph() {
-		if (_morphNum >= TY.data.length) _morphNum = 0;
-
-		setTimeout(updateMorph, 200);
-		setMorph(TY.data[_morphNum]);
-		setMorphOther(TY.data[_morphNum]);
-		_morphNum++;
-	}
-
 	// function updateMorph() {
-	// 	// setTimeout(updateMorph, 500);
-	// 	setMorph(TY.data);
-	// 	setMorphOther(TY.data);
+	// 	if (_morphNum >= TY.datas.length) _morphNum = 0;
+	// 	setTimeout(updateMorph, 200);
+	// 	setMorph(TY.datas[_morphNum]);
+	// 	setMorphOther(TY.datas[_morphNum]);
+	// 	_morphNum++;
 	// }
 
+	function updateMorph() {
+		setTimeout(updateMorph, 200);
+		setMorph(TY.data);
+		setMorphOther(TY.data);
+	}
 
 
-	var cunData = TY.data[0];
+
+	// var cunData = TY.datas[0];
+	var cunData = TY.data;
 	var cunObj = TY.toObject(cunData);
 
 	function setMorph(arr) {
@@ -243,12 +243,13 @@ function init() {
 			.start()
 			.onUpdate(function() {
 				for (var i = 0; i < _arr.length; i++) {
-					mesh.morphTargetInfluences[i] = this[i];
+					mesh.morphTargetInfluences[i] = this[i]*0.01;
 				}
 			});
 	}
 
-	var cunOtherData = TY.data[0].slice(TY.morphConifg.length, TY.data[0].length);
+	// var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
+	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
 	var cunOtherObj = TY.toObject(cunOtherData);
 
 	function setMorphOther(arr) {
