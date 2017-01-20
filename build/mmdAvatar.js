@@ -6,70 +6,115 @@ TY.Debug = 0;
 
 
 
-TY.data = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.9, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.6, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.5, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .6, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.4, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.3, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0.2, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .7, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, .4, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+TY.datas = [
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80],
+	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0],
+	[10, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0],
+	[0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0],
+	[0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 60, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0],
+	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0],
+	[0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0],
+	[0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0],
+	[0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 ];
 
+
+
+TY.data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
 TY.morphConifg = {
-	length: 30,
-	1: '真面目',
-	2: '困る',
-	3: 'にこり',
-	4: '怒り',
-	5: '上',
-	6: '下',
-	7: 'まばたき',
-	8: '笑い',
-	9: 'ウィンク',
-	10: 'ウィンク２',
-	11: 'ウィンク右',
-	12: 'ｳｨﾝｸ２右',
-	13: 'はぅ',
-	14: 'なごみ',
-	15: 'びっくり',
-	16: 'じと目',
-	17: 'なぬ！',
-	18: '瞳小',
-	19: 'あ',
-	20: 'い',
-	21: 'う',
-	22: 'お',
-	23: '▲',
-	24: '∧',
-	25: 'ω',
-	26: 'ω□',
-	27: 'はんっ！',
-	28: 'ぺろっ',
-	29: 'えー',
-	30: 'にやり'
+	length: 34,
+	1: 'Blink_L',
+	2: 'Blink_R',
+	3: 'Blink',
+	4: 'BrowDown',
+	5: 'BrowUp_L',
+	6: 'BrowUp_R',
+	7: 'BrowUp',
+	8: 'MouthOpen',
+	9: 'Grin_L',
+	10: 'Grin_R',
+	11: 'Grin',
+	12: 'Crooked mouth_L',
+	13: 'Crooked mouth_R',
+	14: 'Pout',
+	15: 'Sniff',
+	16: 'EyesUP',
+	17: 'EyesDown',
+	18: 'EyesLeft',
+	19: 'EyesRight',
+	20: 'TongueOut1',
+	21: 'TongueOut2',
+	22: 'TongueOut3',
+	23: 'Mouth_A',
+	24: 'Mouth_B',
+	25: 'Mouth_U',
+	26: 'Mouth_O',
+	27: 'Mouth_E',
+	28: 'UpperLip',
+	29: 'LowerLip',
+	30: 'Shrink mouth',
+	31: 'N_Half open mouth_Up',
+	32: 'N_Half open mouth_Down',
+	33: 'Shrink mouth_L',
+	34: 'Shrink mouth_R'
 };
 
 
 
+// TY.morphConifg = {
+// 	length: 30,
+// 	1: '真面目',
+// 	2: '困る',
+// 	3: 'にこり',
+// 	4: '怒り',
+// 	5: '上',
+// 	6: '下',
+// 	7: 'まばたき',
+// 	8: '笑い',
+// 	9: 'ウィンク',
+// 	10: 'ウィンク２',
+// 	11: 'ウィンク右',
+// 	12: 'ｳｨﾝｸ２右',
+// 	13: 'はぅ',
+// 	14: 'なごみ',
+// 	15: 'びっくり',
+// 	16: 'じと目',
+// 	17: 'なぬ！',
+// 	18: '瞳小',
+// 	19: 'あ',
+// 	20: 'い',
+// 	21: 'う',
+// 	22: 'お',
+// 	23: '▲',
+// 	24: '∧',
+// 	25: 'ω',
+// 	26: 'ω□',
+// 	27: 'はんっ！',
+// 	28: 'ぺろっ',
+// 	29: 'えー',
+// 	30: 'にやり'
+// };
 
 
 
@@ -89,7 +134,6 @@ TY.extend = function(origin, add) {
 	}
 	return origin;
 };
-
 TY.dpr = window.devicePixelRatio || 1;
 
 TY.isAndroid = /Android/i.test(navigator.userAgent);
@@ -112,12 +156,159 @@ function isMobileDevice() {
 }
 
 
-
 TY.toObject = function(arr) {
 	var rv = {};
 	for (var i = 0; i < arr.length; ++i)
 		rv[i] = arr[i];
 	return rv;
+}
+
+TY.toUnicodeArr = function(str) {
+	var _arr = [];
+	for (var i = 0; i < str.length; i++) {
+		_arr[i] = str.charCodeAt(i);
+	}
+	return _arr;
+};
+
+var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+var base64DecodeChars = new Array(-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 62, -1, -1, -1, 63, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, -1, -1, -1, -1, -1, -1, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, -1, -1, -1, -1, -1, -1, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50, 51, -1, -1, -1, -1, -1);
+//base64 编码 
+TY.base64encode = function(str) {
+	var out, i, len;
+	var c1, c2, c3;
+	len = str.length;
+	i = 0;
+	out = "";
+	while (i < len) {
+		c1 = str.charCodeAt(i++) & 0xff;
+		if (i == len) {
+			out += base64EncodeChars.charAt(c1 >> 2);
+			out += base64EncodeChars.charAt((c1 & 0x3) << 4);
+			out += "==";
+			break;
+		}
+		c2 = str.charCodeAt(i++);
+		if (i == len) {
+			out += base64EncodeChars.charAt(c1 >> 2);
+			out += base64EncodeChars.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+			out += base64EncodeChars.charAt((c2 & 0xF) << 2);
+			out += "=";
+			break;
+		}
+		c3 = str.charCodeAt(i++);
+		out += base64EncodeChars.charAt(c1 >> 2);
+		out += base64EncodeChars.charAt(((c1 & 0x3) << 4) | ((c2 & 0xF0) >> 4));
+		out += base64EncodeChars.charAt(((c2 & 0xF) << 2) | ((c3 & 0xC0) >> 6));
+		out += base64EncodeChars.charAt(c3 & 0x3F);
+	}
+	return out;
+};
+//base64 解码
+TY.base64decode = function(str) {
+	var c1, c2, c3, c4;
+	var i, len, out;
+	len = str.length;
+	i = 0;
+	out = "";
+	while (i < len) {
+		/* c1 */
+		do {
+			c1 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
+		}
+		while (i < len && c1 == -1);
+		if (c1 == -1)
+			break;
+		/* c2 */
+		do {
+			c2 = base64DecodeChars[str.charCodeAt(i++) & 0xff];
+		}
+		while (i < len && c2 == -1);
+		if (c2 == -1)
+			break;
+		out += String.fromCharCode((c1 << 2) | ((c2 & 0x30) >> 4));
+		/* c3 */
+		do {
+			c3 = str.charCodeAt(i++) & 0xff;
+			if (c3 == 61)
+				return out;
+			c3 = base64DecodeChars[c3];
+		}
+		while (i < len && c3 == -1);
+		if (c3 == -1)
+			break;
+		out += String.fromCharCode(((c2 & 0XF) << 4) | ((c3 & 0x3C) >> 2));
+		/* c4 */
+		do {
+			c4 = str.charCodeAt(i++) & 0xff;
+			if (c4 == 61)
+				return out;
+			c4 = base64DecodeChars[c4];
+		}
+		while (i < len && c4 == -1);
+		if (c4 == -1)
+			break;
+		out += String.fromCharCode(((c3 & 0x03) << 6) | c4);
+	}
+	return out;
+};
+
+TY.utf16to8 = function(str) {
+	var out, i, len, c;
+	out = "";
+	len = str.length;
+	for (i = 0; i < len; i++) {
+		c = str.charCodeAt(i);
+		if ((c >= 0x0001) && (c <= 0x007F)) {
+			out += str.charAt(i);
+		} else
+		if (c > 0x07FF) {
+			out += String.fromCharCode(0xE0 | ((c >> 12) & 0x0F));
+			out += String.fromCharCode(0x80 | ((c >> 6) & 0x3F));
+			out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+		} else {
+			out += String.fromCharCode(0xC0 | ((c >> 6) & 0x1F));
+			out += String.fromCharCode(0x80 | ((c >> 0) & 0x3F));
+		}
+	}
+	return out;
+}
+
+TY.utf8to16 = function(str) {
+	var out, i, len, c;
+	var char2, char3;
+	out = "";
+	len = str.length;
+	i = 0;
+	while (i < len) {
+		c = str.charCodeAt(i++);
+		switch (c >> 4) {
+			case 0:
+			case 1:
+			case 2:
+			case 3:
+			case 4:
+			case 5:
+			case 6:
+			case 7:
+				// 0xxxxxxx  
+				out += str.charAt(i - 1);
+				break;
+			case 12:
+			case 13:
+				// 110x xxxx 10xx xxxx  
+				char2 = str.charCodeAt(i++);
+				out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+				break;
+			case 14:
+				// 1110 xxxx10xx xxxx10xx xxxx  
+				char2 = str.charCodeAt(i++);
+				char3 = str.charCodeAt(i++);
+				out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
+				break;
+		}
+	}
+	return out;
 }
 /**
  * @author waterTian
@@ -260,8 +451,6 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		this.physicsHelper = new THREE.MMDPhysicsHelper(this.mesh);
 		this.physicsHelper.visible = false;
 		this.scene.add(this.physicsHelper);
-
-		if (TY.isMobileDevice) this.enablePhysics(false);
 	},
 
 
@@ -484,31 +673,63 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 	TYgotoAndPlayAction: function(mesh, clip, weight, percent) {
 		var action = mesh.mixer.clipAction(clip);
 		action.setEffectiveWeight(weight);
-		action.time = clip.duration * 0.5 * percent;
+		action.time = clip.duration * 0.5 * percent*0.01;
 		action.play();
+		return action;
+	},
+	TYgotoAndStopAction: function(mesh, clip, weight, percent) {
+		var action = mesh.mixer.clipAction(clip);
+		// action.setEffectiveWeight(weight);
+
+		// paused
+		action.paused = true;
+		var toTime = clip.duration * 0.5 * percent*0.01;
+
+
+		if (toTime == 0) {
+			if (action.time != 0) action.time = 0;
+			// action.stop();
+			if (action.isScheduled()) mesh.mixer._deactivateAction(action);
+		} else {
+			if (!action.isScheduled()) {
+				// action.play();
+				// action.startAt(toTime);
+				mesh.mixer._activateAction(action);
+			}
+			if (action.time != toTime) action.time = toTime;
+		}
+
 		return action;
 	},
 
 
 	TYfadeToAction: function(mesh, toClip, duration, weight, percent) {
-
 		var scope = this;
-
 		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
-
 		var toAction = this.TYgotoAndPlayAction(mesh, toClip, weight, percent);
-
 		if (!this.currentAction) {
 			this.currentAction = toAction;
 			return;
 		}
-
 		this.currentAction.crossFadeTo(toAction, duration, false);
 		setTimeout(function() {
 			scope.currentAction.stop();
 			scope.currentAction = toAction;
 		}, duration * 1000);
-
+	},
+	TYfadeToStopAction: function(mesh, toClip, duration, weight, percent) {
+		var scope = this;
+		if (this.currentAction == mesh.mixer.clipAction(toClip)) return;
+		var toAction = this.TYgotoAndStopAction(mesh, toClip, weight, percent);
+		if (!this.currentAction) {
+			this.currentAction = toAction;
+			return;
+		}
+		this.currentAction.crossFadeTo(toAction, duration, false);
+		setTimeout(function() {
+			scope.currentAction.stop();
+			scope.currentAction = toAction;
+		}, duration * 1000);
 	},
 
 
@@ -997,7 +1218,10 @@ var container, stats;
 var loading;
 
 var mesh, camera, scene, renderer;
+var sky;
 var avatar;
+
+var player;
 
 var clock = new THREE.Clock();
 
@@ -1005,28 +1229,74 @@ init();
 animate();
 
 
+function loadComplete_initBtns() {
+	loading.style.display = "none";
+
+	//log
+	logBox = document.createElement('div');
+	logBox.style.position = 'absolute';
+	logBox.style.top = '80px';
+	logBox.style.left = '5px';
+	logBox.style.width = '100%';
+	logBox.style.textAlign = 'left';
+	logBox.style.fontSize = '10px';
+	logBox.style.color = "#fafccb";
+	logBox.innerHTML = '一指旋转<br>二指缩进<br>三指移动<br>';
+	container.appendChild(logBox);
+	TY.logBox = logBox;
+
+
+	// STATS
+	stats = new Stats();
+	container.appendChild(stats.dom);
+
+
+
+	//Btns
+	var options = document.createElement('div');
+	options.style.position = 'absolute';
+	options.style.top = '20px';
+	options.style.width = '98%';
+	options.style.textAlign = 'right';
+	options.innerHTML = '<input type="button" onclick="toPlay();" value="Play" />\
+	                     <input type="button" onclick="addOutlineEffect();" value="OutlineEffect" />\
+	                     <input type="button" onclick="addPhysics();" value="Physics" />';
+	container.appendChild(options);
+
+	initPlayer();
+}
+
 function init() {
 	container = document.createElement('div');
 	document.body.appendChild(container);
 
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-	camera.position.z = 25;
 
 	// scene
 	scene = new THREE.Scene();
 
+
+	//light
+	var ambient = new THREE.AmbientLight(0x666666);
+	scene.add(ambient);
+	var directionalLight = new THREE.DirectionalLight(0x887766);
+	directionalLight.position.set(-1, 1, 1).normalize();
+	scene.add(directionalLight);
+
+	//sky
+	var skyM = new THREE.MeshPhongMaterial({
+		color: 0xcbb7ff,
+		emissive: 0x73092f,
+		side: THREE.BackSide
+	});
+	sky = new THREE.Mesh(new THREE.SphereGeometry(100, 3, 3), skyM);
+	scene.add(sky);
+
 	// ground Grid
-	var gridHelper = new THREE.PolarGridHelper(30, 10);
+	var gridHelper = new THREE.PolarGridHelper(20, 5, 14, 5, 0xfafccb, 0xfccc00);
 	gridHelper.position.y = -10;
 	scene.add(gridHelper);
 
-
-	// Lights
-	var ambient = new THREE.AmbientLight(0x333333);
-	scene.add(ambient);
-	var directionalLight = new THREE.DirectionalLight(0x888888);
-	directionalLight.position.set(-1, 1, 1).normalize();
-	scene.add(directionalLight);
 
 	//
 	renderer = new THREE.WebGLRenderer({
@@ -1039,54 +1309,28 @@ function init() {
 
 	// effect
 	TY.effect = new THREE.OutlineEffect(renderer);
-
-
-	//log
-	logBox = document.createElement('div');
-	logBox.style.position = 'absolute';
-	logBox.style.top = '90px';
-	logBox.style.width = '100%';
-	logBox.style.textAlign = 'left';
-	logBox.innerHTML = '...';
-	container.appendChild(logBox);
-	TY.logBox=logBox;
+	TY.effect.enabled = false;
 
 
 
 	// controls, camera
-	// controls = new THREE.OrbitControls(camera, renderer.domElement);
-	controls = new THREE.TyOrbitControls(camera, renderer.domElement);
-	controls.target.set(0, 0, 0);
+	controls = new THREE.OrbitControls(camera, renderer.domElement);
+	// controls = new THREE.TyOrbitControls(camera, renderer.domElement);
+	controls.target.set(0, 3, 0);
+	camera.position.set(0, 10, 30);
 	controls.update();
 
 
 	//Loading
 	loading = document.createElement('div');
 	loading.style.position = 'absolute';
-	loading.style.top = '60px';
+	loading.style.top = '200px';
 	loading.style.width = '100%';
 	loading.style.textAlign = 'center';
+	loading.style.fontSize = '20px';
+	loading.style.color = "#fafccb";
 	loading.innerHTML = 'Loading..';
 	container.appendChild(loading);
-
-
-
-	// STATS
-	stats = new Stats();
-	container.appendChild(stats.dom);
-
-
-	//Btns
-	var options = document.createElement('div');
-	options.style.position = 'absolute';
-	options.style.top = '30px';
-	options.style.width = '100%';
-	options.style.textAlign = 'center';
-	options.innerHTML = 'Action:<input type="button" onclick="action1();" value="action1" />\
-	    <input type="button" onclick="action2();" value="action2" />\
-		<input type="button" onclick="action3();" value="action3" />';
-	container.appendChild(options);
-
 
 	// model
 	var onProgress = function(xhr) {
@@ -1100,7 +1344,7 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	// var modelFile = 'models/1/1.pmx';
+	var modelFile = 'models/H5shuchu/nande.pmx';
 	// var modelFile = 'models/pmd/p9.pmd';
 	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
@@ -1112,15 +1356,12 @@ function init() {
 	// var modelFile = 'models/default/meiko_sakine.pmd';
 	// var modelFile = 'models/default/MEIKO.pmd';
 	// var modelFile = 'models/default/haku.pmd';
-	var modelFile = 'models/low_miku/miku.pmd';
+	// var modelFile = 'models/low_miku/miku.pmd';
 
-	// var motionFile = 'motion/nof_motion/nof_haku.vmd';
-	var motionFile = 'motion/wavefile_v2.vmd';
-	// var motionFile = 'motion/smile.vmd';
-	// var motionFile = 'motion/kishimen.vmd';
-	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
-
-	var vmdFiles = ['motion/nof_motion/nof_haku.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
+	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
+	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd'];
 
 
 
@@ -1136,8 +1377,10 @@ function init() {
 
 		avatar.initIk();
 		avatar.initPhysic();
+		avatar.enablePhysics(false);
 
-		TY.Gui(avatar);
+		// TY.Gui(avatar);
+
 		loadMotions();
 
 	}, onProgress, onError);
@@ -1155,11 +1398,8 @@ function init() {
 
 			initMorphControl();
 
+			loadComplete_initBtns();
 
-			console.log(mesh);
-			console.log(avatar);
-
-			loading.style.display="none";
 		}, onProgress, onError);
 	}
 
@@ -1167,8 +1407,12 @@ function init() {
 	function initMorphControl() {
 		configMorphDate();
 		updateMorph();
+
+		logMorphString();
 	}
 
+
+	/////////////////////////////////////////
 	var newKeys = [];
 
 	function configMorphDate() {
@@ -1201,31 +1445,64 @@ function init() {
 
 	var _morphNum = 0;
 
-	function updateMorph() {
-		if (_morphNum >= TY.data.length) _morphNum = 0;
+	// function updateMorph() {
+	// 	if (_morphNum >= TY.datas.length) _morphNum = 0;
+	// 	setTimeout(updateMorph, 200);
+	// 	setMorph(TY.datas[_morphNum]);
+	// 	setMorphOther(TY.datas[_morphNum]);
+	// 	_morphNum++;
+	// }
 
-		setTimeout(updateMorph, 1000);
-		setMorph(TY.data[_morphNum]);
-		_morphNum++;
+	function updateMorph() {
+		setTimeout(updateMorph, 100);
+		setMorph(TY.data);
+		setMorphOther(TY.data);
 	}
 
 
-	var cunData = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+
+	// var cunData = TY.datas[0];
+	var cunData = TY.data;
 	var cunObj = TY.toObject(cunData);
 
 	function setMorph(arr) {
 		var _arr = configControlDate(arr);
 		var toObj = TY.toObject(_arr);
 		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 200)
+			.to(toObj, 100)
 			.start()
 			.onUpdate(function() {
 				for (var i = 0; i < _arr.length; i++) {
-					mesh.morphTargetInfluences[i] = this[i];
+					mesh.morphTargetInfluences[i] = this[i] * 0.01;
 				}
 			});
 	}
 
+	// var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
+	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
+	var cunOtherObj = TY.toObject(cunOtherData);
+
+	function setMorphOther(arr) {
+		var _arr = arr.slice(TY.morphConifg.length, arr.length);
+		var toObj = TY.toObject(_arr);
+
+		var tween = new TWEEN.Tween(cunOtherObj)
+			.to(toObj, 100)
+			.start()
+			.onUpdate(function() {
+				for (var i = 0; i < _arr.length; i++) {
+					if (i < mesh.geometry.animations.length) {
+						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
+					}
+				}
+			});
+
+		// for (var i = 0; i < _arr.length; i++) {
+		// 	if (i < mesh.geometry.animations.length) {
+		// 		avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
+		// 	}
+		// }
+	}
 
 	function logMorphString() {
 		var logString = "";
@@ -1241,16 +1518,66 @@ function init() {
 }
 
 
-function action1() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[0], 0.5, 1, 0.5);
+
+function initPlayer() {
+
+	var head = document.getElementsByTagName("head")[0],
+		script = document.createElement("script");
+	if (isMobileDevice())
+		script.src = "./libs/7.7.4/provider.html5.js";
+	else script.src = "./libs/7.7.4/provider.caterpillar.js";
+	head.appendChild(script);
+
+
+	var playerDiv = document.createElement('div');
+	document.body.appendChild(playerDiv);
+
+
+	player = jwplayer(playerDiv);
+	player.setup({
+		// file: 'assets/index.m3u8',
+		file: 'http://101.201.107.35:9380/913.m3u8',
+		hlshtml: true,
+		// autostart: true,
+		height: 100,
+		width: 300
+	});
+
+	player.on('ready', function() {
+		TY.logBox.innerHTML += "ready<br>";
+	});
+
+	player.on('meta', function(event) {
+		var _obj = event.metadata['PRIV'];
+		var _key = Object.keys(_obj)[0];
+		var _str = TY.base64decode(_key);
+		var _Arr = TY.toUnicodeArr(_str);
+
+		TY.data = _Arr;
+		// console.log(_Arr);
+		TY.logBox.innerHTML = TY.data+"<br>";
+	});
+
+	console.log("initPlayer");
 }
 
-function action2() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[1], 0.5, 1, 0.15);
+function toPlay()
+{
+	player.play();
+
+	TY.logBox.innerHTML += "play<br>";
 }
 
-function action3() {
-	avatar.TYfadeToAction(mesh,mesh.geometry.animations[2], 1, 1, 0.4);
+
+function addOutlineEffect() {
+	TY.effect.enabled = !TY.effect.enabled;
+	TY.logBox.innerHTML += "Outline-" + TY.effect.enabled + "<br>";
+}
+
+function addPhysics() {
+	if (avatar.doPhysics) avatar.enablePhysics(false);
+	else avatar.enablePhysics(true);
+	TY.logBox.innerHTML += "Physics-" + avatar.doPhysics + "<br>";
 }
 
 
@@ -1272,6 +1599,8 @@ function animate(time) {
 	render();
 	TWEEN.update(time);
 	if (stats) stats.update();
+
+	// if (avatar.currentAction) console.log(avatar.currentAction.time);
 }
 
 function render() {

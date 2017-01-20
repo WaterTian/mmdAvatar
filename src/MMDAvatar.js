@@ -69,8 +69,6 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		this.physicsHelper = new THREE.MMDPhysicsHelper(this.mesh);
 		this.physicsHelper.visible = false;
 		this.scene.add(this.physicsHelper);
-
-		if (TY.isMobileDevice) this.enablePhysics(false);
 	},
 
 

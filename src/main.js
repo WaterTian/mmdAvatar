@@ -3,7 +3,10 @@ var container, stats;
 var loading;
 
 var mesh, camera, scene, renderer;
+var sky;
 var avatar;
+
+var player;
 
 var clock = new THREE.Clock();
 
@@ -11,28 +14,74 @@ init();
 animate();
 
 
+function loadComplete_initBtns() {
+	loading.style.display = "none";
+
+	//log
+	logBox = document.createElement('div');
+	logBox.style.position = 'absolute';
+	logBox.style.top = '80px';
+	logBox.style.left = '5px';
+	logBox.style.width = '100%';
+	logBox.style.textAlign = 'left';
+	logBox.style.fontSize = '10px';
+	logBox.style.color = "#fafccb";
+	logBox.innerHTML = '一指旋转<br>二指缩进<br>三指移动<br>';
+	container.appendChild(logBox);
+	TY.logBox = logBox;
+
+
+	// STATS
+	stats = new Stats();
+	container.appendChild(stats.dom);
+
+
+
+	//Btns
+	var options = document.createElement('div');
+	options.style.position = 'absolute';
+	options.style.top = '20px';
+	options.style.width = '98%';
+	options.style.textAlign = 'right';
+	options.innerHTML = '<input type="button" onclick="toPlay();" value="Play" />\
+	                     <input type="button" onclick="addOutlineEffect();" value="OutlineEffect" />\
+	                     <input type="button" onclick="addPhysics();" value="Physics" />';
+	container.appendChild(options);
+
+	initPlayer();
+}
+
 function init() {
 	container = document.createElement('div');
 	document.body.appendChild(container);
 
 	camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000);
-	camera.position.z = 25;
 
 	// scene
 	scene = new THREE.Scene();
 
+
+	//light
+	var ambient = new THREE.AmbientLight(0x666666);
+	scene.add(ambient);
+	var directionalLight = new THREE.DirectionalLight(0x887766);
+	directionalLight.position.set(-1, 1, 1).normalize();
+	scene.add(directionalLight);
+
+	//sky
+	var skyM = new THREE.MeshPhongMaterial({
+		color: 0xcbb7ff,
+		emissive: 0x73092f,
+		side: THREE.BackSide
+	});
+	sky = new THREE.Mesh(new THREE.SphereGeometry(100, 3, 3), skyM);
+	scene.add(sky);
+
 	// ground Grid
-	var gridHelper = new THREE.PolarGridHelper(30, 10);
+	var gridHelper = new THREE.PolarGridHelper(20, 5, 14, 5, 0xfafccb, 0xfccc00);
 	gridHelper.position.y = -10;
 	scene.add(gridHelper);
 
-
-	// Lights
-	var ambient = new THREE.AmbientLight(0x333333);
-	scene.add(ambient);
-	var directionalLight = new THREE.DirectionalLight(0x888888);
-	directionalLight.position.set(-1, 1, 1).normalize();
-	scene.add(directionalLight);
 
 	//
 	renderer = new THREE.WebGLRenderer({
@@ -45,55 +94,28 @@ function init() {
 
 	// effect
 	TY.effect = new THREE.OutlineEffect(renderer);
-
-
-	//log
-	logBox = document.createElement('div');
-	logBox.style.position = 'absolute';
-	logBox.style.top = '90px';
-	logBox.style.width = '100%';
-	logBox.style.textAlign = 'left';
-	logBox.innerHTML = '...';
-	container.appendChild(logBox);
-	TY.logBox = logBox;
+	TY.effect.enabled = false;
 
 
 
 	// controls, camera
 	controls = new THREE.OrbitControls(camera, renderer.domElement);
 	// controls = new THREE.TyOrbitControls(camera, renderer.domElement);
-	controls.target.set(0, 0, 0);
+	controls.target.set(0, 3, 0);
+	camera.position.set(0, 10, 30);
 	controls.update();
 
 
 	//Loading
 	loading = document.createElement('div');
 	loading.style.position = 'absolute';
-	loading.style.top = '60px';
+	loading.style.top = '200px';
 	loading.style.width = '100%';
 	loading.style.textAlign = 'center';
+	loading.style.fontSize = '20px';
+	loading.style.color = "#fafccb";
 	loading.innerHTML = 'Loading..';
 	container.appendChild(loading);
-
-
-
-	// STATS
-	stats = new Stats();
-	container.appendChild(stats.dom);
-
-
-	//Btns
-	var options = document.createElement('div');
-	options.style.position = 'absolute';
-	options.style.top = '30px';
-	options.style.width = '100%';
-	options.style.textAlign = 'center';
-	options.innerHTML = 'Action:<input type="button" onclick="action1();" value="action1" />\
-	    <input type="button" onclick="action2();" value="action2" />\
-	    <input type="button" onclick="action3();" value="action3" />\
-		<input type="button" onclick="action4();" value="action4" />';
-	container.appendChild(options);
-
 
 	// model
 	var onProgress = function(xhr) {
@@ -121,12 +143,6 @@ function init() {
 	// var modelFile = 'models/default/haku.pmd';
 	// var modelFile = 'models/low_miku/miku.pmd';
 
-	// var motionFile = 'motion/nof_motion/nof_haku.vmd';
-	var motionFile = 'motion/wavefile_v2.vmd';
-	// var motionFile = 'motion/smile.vmd';
-	// var motionFile = 'motion/kishimen.vmd';
-	// var motionFile = 'motion/wavefile_full_miku_v2.vmd';
-
 	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
 	// var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
 	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd'];
@@ -146,8 +162,10 @@ function init() {
 
 		avatar.initIk();
 		avatar.initPhysic();
+		avatar.enablePhysics(false);
 
-		TY.Gui(avatar);
+		// TY.Gui(avatar);
+
 		loadMotions();
 
 	}, onProgress, onError);
@@ -165,11 +183,8 @@ function init() {
 
 			initMorphControl();
 
+			loadComplete_initBtns();
 
-			console.log(mesh);
-			console.log(avatar);
-
-			loading.style.display = "none";
 		}, onProgress, onError);
 	}
 
@@ -224,7 +239,7 @@ function init() {
 	// }
 
 	function updateMorph() {
-		setTimeout(updateMorph, 200);
+		setTimeout(updateMorph, 100);
 		setMorph(TY.data);
 		setMorphOther(TY.data);
 	}
@@ -243,7 +258,7 @@ function init() {
 			.start()
 			.onUpdate(function() {
 				for (var i = 0; i < _arr.length; i++) {
-					mesh.morphTargetInfluences[i] = this[i]*0.01;
+					mesh.morphTargetInfluences[i] = this[i] * 0.01;
 				}
 			});
 	}
@@ -274,8 +289,6 @@ function init() {
 		// }
 	}
 
-
-
 	function logMorphString() {
 		var logString = "";
 		var logNum = 0;
@@ -290,21 +303,68 @@ function init() {
 }
 
 
-function action1() {
-	avatar.TYfadeToAction(mesh, mesh.geometry.animations[0], 0.5, 1, 1);
+
+function initPlayer() {
+
+	var head = document.getElementsByTagName("head")[0],
+		script = document.createElement("script");
+	if (isMobileDevice())
+		script.src = "./libs/7.7.4/provider.html5.js";
+	else script.src = "./libs/7.7.4/provider.caterpillar.js";
+	head.appendChild(script);
+
+
+	var playerDiv = document.createElement('div');
+	document.body.appendChild(playerDiv);
+
+
+	player = jwplayer(playerDiv);
+	player.setup({
+		// file: 'assets/index.m3u8',
+		file: 'http://101.201.107.35:9380/913.m3u8',
+		hlshtml: true,
+		// autostart: true,
+		height: 100,
+		width: 300
+	});
+
+	player.on('ready', function() {
+		TY.logBox.innerHTML += "ready<br>";
+	});
+
+	player.on('meta', function(event) {
+		var _obj = event.metadata['PRIV'];
+		var _key = Object.keys(_obj)[0];
+		var _str = TY.base64decode(_key);
+		var _Arr = TY.toUnicodeArr(_str);
+
+		TY.data = _Arr;
+		// console.log(_Arr);
+		TY.logBox.innerHTML = TY.data+"<br>";
+	});
+
+	console.log("initPlayer");
 }
 
-function action2() {
-	avatar.TYfadeToStopAction(mesh, mesh.geometry.animations[1], 1, 1, 1);
+function toPlay()
+{
+	player.play();
+
+	TY.logBox.innerHTML += "play<br>";
 }
 
-function action3() {
-	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[2], 1, 1);
+
+function addOutlineEffect() {
+	TY.effect.enabled = !TY.effect.enabled;
+	TY.logBox.innerHTML += "Outline-" + TY.effect.enabled + "<br>";
 }
 
-function action4() {
-	avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[3], 1, 1);
+function addPhysics() {
+	if (avatar.doPhysics) avatar.enablePhysics(false);
+	else avatar.enablePhysics(true);
+	TY.logBox.innerHTML += "Physics-" + avatar.doPhysics + "<br>";
 }
+
 
 
 function onWindowResize() {
