@@ -1,8 +1,9 @@
 MMDAvatar
 ======
 
-[![layout](https://watertian.github.io/mmdAvatar/mmd.png)](http://watertian.github.io/mmdAvatar/)
+
 ![QR](https://watertian.github.io/mmdAvatar/mmdQR.gif)
+[![layout](https://watertian.github.io/mmdAvatar/mmd.png)](http://watertian.github.io/mmdAvatar/)
 
 ## HTML5 MMD Live
 
