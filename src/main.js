@@ -129,9 +129,9 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	var modelFile = 'models/H5shuchu/nande.pmx';
+	// var modelFile = 'models/H5shuchu/nande.pmx';
 	// var modelFile = 'models/pmd/p9.pmd';
-	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
+	var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
 	// var modelFile = 'models/default/miku.pmd';
 	// var modelFile = 'models/default/neru.pmd';
