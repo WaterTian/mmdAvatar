@@ -234,67 +234,65 @@ function init() {
 		if (_morphNum >= TY.datas.length) _morphNum = 0;
 		setTimeout(updateMorph, 1000);
 		setMorph(TY.datas[_morphNum]);
+		setMorphOther(TY.datas[_morphNum]);
 		_morphNum++;
 	}
 
 	// function updateMorph() {
 	// 	setTimeout(updateMorph, 100);
 	// 	setMorph(TY.data);
+	//  setMorphOther(TY.datas[TY.data]);
 	// }
 
 
 
-	var cunData = {};
+	var cunObj = {};
 	for (var i = 0; i < TY.morphConifg.length; ++i)
-		cunData[i] = 0;
-	// var cunData = TY.data;
+		cunObj[i] = 0;
 
 	function setMorph(obj) {
-		console.log(obj);
-		var _toObj = {};
-		for (var i = 0; i < TY.morphConifg.length; ++i) {
+		// console.log(obj);
+		var toObj = {};
+		for (var i = 0; i < TY.morphConifg.length; i++) {
 			if (obj[i]) {
-				_toObj[i] = obj[i]
+				toObj[i] = obj[i]
 			} else {
-				_toObj[i] = 0;
+				toObj[i] = 0;
 			}
 		}
-
-		// var _arr = configControlDate(arr);
-		var tween = new TWEEN.Tween(cunData)
-			.to(_toObj, 300)
+		var tween = new TWEEN.Tween(cunObj)
+			.to(toObj, 300)
 			.start()
 			.onUpdate(function() {
-				for (var i = 0; i < newKeys.length; i++) {
+				for (var i = 0; i < TY.morphConifg.length; i++) {
 					if (this[i] != 0) mesh.morphTargetInfluences[i] = this[i] * 0.01;
 				}
 			});
 	}
 
-	// // var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
-	// var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
-	// var cunOtherObj = TY.toObject(cunOtherData);
+	var cunOtherData = [100, 100, 100];
+	var cunOtherObj = TY.toObject(cunOtherData);
 
-	function setMorphOther(arr) {
-		var _arr = arr.slice(TY.morphConifg.length, arr.length);
-		var toObj = TY.toObject(_arr);
-
+	function setMorphOther(obj) {
+		var toObj = {};
+		for (var i = 0; i < cunOtherData.length; i++) {
+			var _i = TY.morphConifg.length + i;
+			if (obj[_i]) {
+				toObj[i] = obj[_i]
+			} else {
+				toObj[i] = 100;
+			}
+		}
 		var tween = new TWEEN.Tween(cunOtherObj)
-			.to(toObj, 100)
+			.to(toObj, 300)
 			.start()
 			.onUpdate(function() {
-				for (var i = 0; i < _arr.length; i++) {
+				for (var i = 0; i < cunOtherData.length; i++) {
 					if (i < mesh.geometry.animations.length) {
 						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
 					}
 				}
 			});
-
-		// for (var i = 0; i < _arr.length; i++) {
-		// 	if (i < mesh.geometry.animations.length) {
-		// 		avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
-		// 	}
-		// }
 	}
 
 	function logMorphString() {
