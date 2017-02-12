@@ -48,7 +48,7 @@ function loadComplete_initBtns() {
 	                     <input type="button" onclick="addPhysics();" value="Physics" />';
 	container.appendChild(options);
 
-	initPlayer();
+	// initPlayer();
 }
 
 function init() {
@@ -129,9 +129,9 @@ function init() {
 
 	var onError = function(xhr) {};
 
-	// var modelFile = 'models/H5shuchu/nande.pmx';
+	var modelFile = 'models/H5shuchu/nande.pmx';
 	// var modelFile = 'models/pmd/p9.pmd';
-	var modelFile = 'models/mmd/miku/miku_v2.pmd';
+	// var modelFile = 'models/mmd/miku/miku_v2.pmd';
 	// var modelFile = 'models/default/miku_m.pmd';
 	// var modelFile = 'models/default/miku.pmd';
 	// var modelFile = 'models/default/neru.pmd';
@@ -230,42 +230,50 @@ function init() {
 
 	var _morphNum = 0;
 
-	// function updateMorph() {
-	// 	if (_morphNum >= TY.datas.length) _morphNum = 0;
-	// 	setTimeout(updateMorph, 200);
-	// 	setMorph(TY.datas[_morphNum]);
-	// 	setMorphOther(TY.datas[_morphNum]);
-	// 	_morphNum++;
-	// }
-
 	function updateMorph() {
-		setTimeout(updateMorph, 100);
-		setMorph(TY.data);
-		setMorphOther(TY.data);
+		if (_morphNum >= TY.datas.length) _morphNum = 0;
+		setTimeout(updateMorph, 1000);
+		setMorph(TY.datas[_morphNum]);
+		_morphNum++;
 	}
 
+	// function updateMorph() {
+	// 	setTimeout(updateMorph, 100);
+	// 	setMorph(TY.data);
+	// }
 
 
-	// var cunData = TY.datas[0];
-	var cunData = TY.data;
-	var cunObj = TY.toObject(cunData);
 
-	function setMorph(arr) {
-		var _arr = configControlDate(arr);
-		var toObj = TY.toObject(_arr);
-		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 100)
+	var cunData = {};
+	for (var i = 0; i < TY.morphConifg.length; ++i)
+		cunData[i] = 0;
+	// var cunData = TY.data;
+
+	function setMorph(obj) {
+		console.log(obj);
+		var _toObj = {};
+		for (var i = 0; i < TY.morphConifg.length; ++i) {
+			if (obj[i]) {
+				_toObj[i] = obj[i]
+			} else {
+				_toObj[i] = 0;
+			}
+		}
+
+		// var _arr = configControlDate(arr);
+		var tween = new TWEEN.Tween(cunData)
+			.to(_toObj, 300)
 			.start()
 			.onUpdate(function() {
-				for (var i = 0; i < _arr.length; i++) {
-					mesh.morphTargetInfluences[i] = this[i] * 0.01;
+				for (var i = 0; i < newKeys.length; i++) {
+					if (this[i] != 0) mesh.morphTargetInfluences[i] = this[i] * 0.01;
 				}
 			});
 	}
 
-	// var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
-	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
-	var cunOtherObj = TY.toObject(cunOtherData);
+	// // var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
+	// var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
+	// var cunOtherObj = TY.toObject(cunOtherData);
 
 	function setMorphOther(arr) {
 		var _arr = arr.slice(TY.morphConifg.length, arr.length);
@@ -333,21 +341,21 @@ function initPlayer() {
 	});
 
 	player.on('meta', function(event) {
-		var _obj = event.metadata['PRIV'];
-		var _key = Object.keys(_obj)[0];
+		var _data = event.metadata['PRIV'];
+		var _key = Object.keys(_data)[0];
 		var _str = TY.base64decode(_key);
-		var _Arr = TY.toUnicodeArr(_str);
 
-		TY.data = _Arr;
-		// console.log(_Arr);
-		TY.logBox.innerHTML = TY.data+"<br>";
+		var _Arr = TY.toUnicodeArr(_str);
+		var _Obj = TY.toUnicodeObj(_str);
+
+		TY.data = _Obj;
+		TY.logBox.innerHTML = TY.data + "<br>";
 	});
 
 	console.log("initPlayer");
 }
 
-function toPlay()
-{
+function toPlay() {
 	player.play();
 
 	TY.logBox.innerHTML += "play<br>";
