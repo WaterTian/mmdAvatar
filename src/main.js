@@ -36,7 +36,6 @@ function loadComplete_initBtns() {
 	container.appendChild(stats.dom);
 
 
-
 	//Btns
 	var options = document.createElement('div');
 	options.style.position = 'absolute';
