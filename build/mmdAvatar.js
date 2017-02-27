@@ -6,41 +6,20 @@ TY.Debug = 0;
 
 
 
-
 TY.datas = [
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80],
-	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0],
-	[10, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 70, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0],
-	[0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0],
-	[0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 100, 60, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0],
-	[100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 60, 0, 0, 0, 0, 0, 0],
-	[0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 40, 0, 0, 0],
-	[0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 30, 0],
-	[0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 80, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 100, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+	{1:100,34:100},
+	{2:100,17:100},
+	{2:30,17:100,18:100},
+	{2:30,17:20,18:20,19:100},
+	{12:30,13:100},
+	{12:100,9:100},
+	{13:100,10:100},
+	{35:20,36:160}
 ];
 
 
 
-TY.data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+TY.data = {};
 
 TY.morphConifg = {
 	length: 34,
@@ -169,6 +148,17 @@ TY.toUnicodeArr = function(str) {
 		_arr[i] = str.charCodeAt(i);
 	}
 	return _arr;
+};
+
+TY.toUnicodeObj = function(str) {
+	var _Obj = {};
+	for (var i = 0; i < str.length - 1; i += 2) {
+		_id = str.charCodeAt(i);
+		_vl = str.charCodeAt(i + 1);
+		_Obj[_id] = _vl;
+	}
+	_Obj['length'] = str.length / 2;
+	return _Obj;
 };
 
 var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
@@ -1251,7 +1241,6 @@ function loadComplete_initBtns() {
 	container.appendChild(stats.dom);
 
 
-
 	//Btns
 	var options = document.createElement('div');
 	options.style.position = 'absolute';
@@ -1263,7 +1252,7 @@ function loadComplete_initBtns() {
 	                     <input type="button" onclick="addPhysics();" value="Physics" />';
 	container.appendChild(options);
 
-	initPlayer();
+	// initPlayer();
 }
 
 function init() {
@@ -1445,63 +1434,69 @@ function init() {
 
 	var _morphNum = 0;
 
-	// function updateMorph() {
-	// 	if (_morphNum >= TY.datas.length) _morphNum = 0;
-	// 	setTimeout(updateMorph, 200);
-	// 	setMorph(TY.datas[_morphNum]);
-	// 	setMorphOther(TY.datas[_morphNum]);
-	// 	_morphNum++;
-	// }
-
 	function updateMorph() {
-		setTimeout(updateMorph, 100);
-		setMorph(TY.data);
-		setMorphOther(TY.data);
+		if (_morphNum >= TY.datas.length) _morphNum = 0;
+		setTimeout(updateMorph, 1000);
+		setMorph(TY.datas[_morphNum]);
+		setMorphOther(TY.datas[_morphNum]);
+		_morphNum++;
 	}
 
+	// function updateMorph() {
+	// 	setTimeout(updateMorph, 100);
+	// 	setMorph(TY.data);
+	//  setMorphOther(TY.datas[TY.data]);
+	// }
 
 
-	// var cunData = TY.datas[0];
-	var cunData = TY.data;
-	var cunObj = TY.toObject(cunData);
 
-	function setMorph(arr) {
-		var _arr = configControlDate(arr);
-		var toObj = TY.toObject(_arr);
+	var cunObj = {};
+	for (var i = 0; i < TY.morphConifg.length; ++i)
+		cunObj[i] = 0;
+
+	function setMorph(obj) {
+		// console.log(obj);
+		var toObj = {};
+		for (var i = 0; i < TY.morphConifg.length; i++) {
+			if (obj[i]) {
+				toObj[i] = obj[i]
+			} else {
+				toObj[i] = 0;
+			}
+		}
 		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 100)
+			.to(toObj, 300)
 			.start()
 			.onUpdate(function() {
-				for (var i = 0; i < _arr.length; i++) {
-					mesh.morphTargetInfluences[i] = this[i] * 0.01;
+				for (var i = 0; i < TY.morphConifg.length; i++) {
+					if (this[i] != 0) mesh.morphTargetInfluences[i] = this[i] * 0.01;
 				}
 			});
 	}
 
-	// var cunOtherData = TY.datas[0].slice(TY.morphConifg.length, TY.datas[0].length);
-	var cunOtherData = TY.data.slice(TY.morphConifg.length, TY.data.length);
+	var cunOtherData = [100, 100, 100];
 	var cunOtherObj = TY.toObject(cunOtherData);
 
-	function setMorphOther(arr) {
-		var _arr = arr.slice(TY.morphConifg.length, arr.length);
-		var toObj = TY.toObject(_arr);
-
+	function setMorphOther(obj) {
+		var toObj = {};
+		for (var i = 0; i < cunOtherData.length; i++) {
+			var _i = TY.morphConifg.length + i;
+			if (obj[_i]) {
+				toObj[i] = obj[_i]
+			} else {
+				toObj[i] = 100;
+			}
+		}
 		var tween = new TWEEN.Tween(cunOtherObj)
-			.to(toObj, 100)
+			.to(toObj, 300)
 			.start()
 			.onUpdate(function() {
-				for (var i = 0; i < _arr.length; i++) {
+				for (var i = 0; i < cunOtherData.length; i++) {
 					if (i < mesh.geometry.animations.length) {
 						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
 					}
 				}
 			});
-
-		// for (var i = 0; i < _arr.length; i++) {
-		// 	if (i < mesh.geometry.animations.length) {
-		// 		avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, _arr[i]);
-		// 	}
-		// }
 	}
 
 	function logMorphString() {
@@ -1548,21 +1543,21 @@ function initPlayer() {
 	});
 
 	player.on('meta', function(event) {
-		var _obj = event.metadata['PRIV'];
-		var _key = Object.keys(_obj)[0];
+		var _data = event.metadata['PRIV'];
+		var _key = Object.keys(_data)[0];
 		var _str = TY.base64decode(_key);
-		var _Arr = TY.toUnicodeArr(_str);
 
-		TY.data = _Arr;
-		// console.log(_Arr);
-		TY.logBox.innerHTML = TY.data+"<br>";
+		var _Arr = TY.toUnicodeArr(_str);
+		var _Obj = TY.toUnicodeObj(_str);
+
+		TY.data = _Obj;
+		TY.logBox.innerHTML = TY.data + "<br>";
 	});
 
 	console.log("initPlayer");
 }
 
-function toPlay()
-{
+function toPlay() {
 	player.play();
 
 	TY.logBox.innerHTML += "play<br>";
