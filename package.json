@@ -28,6 +28,7 @@
 		"src/core/utils.js",
 		"src/core/EventDispatcher.js",
 		"src/MMDAvatar.js",
+		"src/AvatarControler.js",
 		"src/Gui.js",
 		"src/main.js"
 	]

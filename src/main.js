@@ -180,7 +180,7 @@ function init() {
 			avatar.TYsetAnimation(mesh);
 			avatar.TYsetikSolver(mesh);
 
-			initMorphControl();
+			initAvatarControler();
 
 			loadComplete_initBtns();
 
@@ -188,27 +188,22 @@ function init() {
 	}
 
 
-	function initMorphControl() {
-		configMorphDate();
-		updateMorph();
+	function initAvatarControler() {
 
-		logMorphString();
+		var avatarControler = new TY.AvatarControler(avatar);
+
+		avatarControler.logMorphString();
+
+	    _updata();
+	    function _updata()
+	    {
+	    	setTimeout(_updata, 600);
+	    	avatarControler.updateMorph();
+	    }
 	}
 
 
 	/////////////////////////////////////////
-	var newKeys = [];
-
-	function configMorphDate() {
-		for (var key in mesh.morphTargetDictionary) {
-			for (var i = 0; i <= TY.morphConifg.length; i++) {
-				if (key == TY.morphConifg[i]) {
-					newKeys.push(i);
-				}
-			}
-		}
-		console.log(newKeys);
-	}
 
 	function configControlDate(arr) {
 		if (arr.length == newKeys.length) {
@@ -226,83 +221,6 @@ function init() {
 		return newControlArr;
 	}
 
-
-	var _morphNum = 0;
-
-	function updateMorph() {
-		if (_morphNum >= TY.datas.length) _morphNum = 0;
-		setTimeout(updateMorph, 1000);
-		setMorph(TY.datas[_morphNum]);
-		setMorphOther(TY.datas[_morphNum]);
-		_morphNum++;
-	}
-
-	// function updateMorph() {
-	// 	setTimeout(updateMorph, 100);
-	// 	setMorph(TY.data);
-	//  setMorphOther(TY.datas[TY.data]);
-	// }
-
-
-
-	var cunObj = {};
-	for (var i = 0; i < TY.morphConifg.length; ++i)
-		cunObj[i] = 0;
-
-	function setMorph(obj) {
-		// console.log(obj);
-		var toObj = {};
-		for (var i = 0; i < TY.morphConifg.length; i++) {
-			if (obj[i]) {
-				toObj[i] = obj[i]
-			} else {
-				toObj[i] = 0;
-			}
-		}
-		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 300)
-			.start()
-			.onUpdate(function() {
-				for (var i = 0; i < TY.morphConifg.length; i++) {
-					if (this[i] != 0) mesh.morphTargetInfluences[i] = this[i] * 0.01;
-				}
-			});
-	}
-
-	var cunOtherData = [100, 100, 100];
-	var cunOtherObj = TY.toObject(cunOtherData);
-
-	function setMorphOther(obj) {
-		var toObj = {};
-		for (var i = 0; i < cunOtherData.length; i++) {
-			var _i = TY.morphConifg.length + i;
-			if (obj[_i]) {
-				toObj[i] = obj[_i]
-			} else {
-				toObj[i] = 100;
-			}
-		}
-		var tween = new TWEEN.Tween(cunOtherObj)
-			.to(toObj, 300)
-			.start()
-			.onUpdate(function() {
-				for (var i = 0; i < cunOtherData.length; i++) {
-					if (i < mesh.geometry.animations.length) {
-						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
-					}
-				}
-			});
-	}
-
-	function logMorphString() {
-		var logString = "";
-		var logNum = 0;
-		for (var key in mesh.morphTargetDictionary) {
-			logString += logNum + ":" + key + "  ";
-			logNum++;
-		}
-		console.log(logString);
-	}
 	//
 	window.addEventListener('resize', onWindowResize, false);
 }
