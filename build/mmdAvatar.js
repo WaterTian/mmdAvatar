@@ -6,16 +6,50 @@ TY.Debug = 0;
 
 
 
-TY.datas = [
-	{1:100,34:100},
-	{2:100,17:100},
-	{2:30,17:100,18:100},
-	{2:30,17:20,18:20,19:100},
-	{12:30,13:100},
-	{12:100,9:100},
-	{13:100,10:100},
-	{35:20,36:160}
-];
+TY.datas = [{
+	1: 100,
+	34: 100
+}, {
+	2: 100,
+	17: 100
+}, {
+	2: 30,
+	17: 100,
+	18: 100
+}, {
+	2: 30,
+	17: 20,
+	18: 20,
+	19: 100
+}, {
+	12: 30,
+	13: 100
+}, {
+	12: 100,
+	9: 100
+}, {
+	13: 100,
+	10: 100
+}, {
+	35: 100,
+	1: 100
+}, {
+	35: 200,
+	2: 100
+}, {
+	36: 200,
+	3: 100
+}, {
+	37: 100,
+	4: 100
+}, {
+	37: 200,
+	35: 200,
+	5: 100
+}, {
+	35: 20,
+	36: 200
+}];
 
 
 
@@ -121,9 +155,7 @@ TY.isChrome = /chrome\//i.test(navigator.userAgent);
 TY.isWeixin = /MicroMessenger\//i.test(navigator.userAgent);
 TY.isWeibo = /Weibo/i.test(navigator.userAgent);
 
-TY.isMobileDevice = isMobileDevice;
-
-function isMobileDevice() {
+TY.isMobileDevice = isMobileDevice = function() {
 	if (navigator === undefined || navigator.userAgent === undefined) {
 		return true;
 	}
@@ -265,44 +297,44 @@ TY.utf16to8 = function(str) {
 }
 
 TY.utf8to16 = function(str) {
-	var out, i, len, c;
-	var char2, char3;
-	out = "";
-	len = str.length;
-	i = 0;
-	while (i < len) {
-		c = str.charCodeAt(i++);
-		switch (c >> 4) {
-			case 0:
-			case 1:
-			case 2:
-			case 3:
-			case 4:
-			case 5:
-			case 6:
-			case 7:
-				// 0xxxxxxx  
-				out += str.charAt(i - 1);
-				break;
-			case 12:
-			case 13:
-				// 110x xxxx 10xx xxxx  
-				char2 = str.charCodeAt(i++);
-				out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
-				break;
-			case 14:
-				// 1110 xxxx10xx xxxx10xx xxxx  
-				char2 = str.charCodeAt(i++);
-				char3 = str.charCodeAt(i++);
-				out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
-				break;
+		var out, i, len, c;
+		var char2, char3;
+		out = "";
+		len = str.length;
+		i = 0;
+		while (i < len) {
+			c = str.charCodeAt(i++);
+			switch (c >> 4) {
+				case 0:
+				case 1:
+				case 2:
+				case 3:
+				case 4:
+				case 5:
+				case 6:
+				case 7:
+					// 0xxxxxxx  
+					out += str.charAt(i - 1);
+					break;
+				case 12:
+				case 13:
+					// 110x xxxx 10xx xxxx  
+					char2 = str.charCodeAt(i++);
+					out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
+					break;
+				case 14:
+					// 1110 xxxx10xx xxxx10xx xxxx  
+					char2 = str.charCodeAt(i++);
+					char3 = str.charCodeAt(i++);
+					out += String.fromCharCode(((c & 0x0F) << 12) | ((char2 & 0x3F) << 6) | ((char3 & 0x3F) << 0));
+					break;
+			}
 		}
+		return out;
 	}
-	return out;
-}
-/**
- * @author waterTian
- */
+	/**
+	 * @author waterTian
+	 */
 TY.EventDispatcher = function() {}
 TY.EventDispatcher.prototype = {
 	constructor: TY.EventDispatcher,
@@ -663,7 +695,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 	TYgotoAndPlayAction: function(mesh, clip, weight, percent) {
 		var action = mesh.mixer.clipAction(clip);
 		action.setEffectiveWeight(weight);
-		action.time = clip.duration * 0.5 * percent*0.01;
+		action.time = clip.duration * 0.5 * percent * 0.01;
 		action.play();
 		return action;
 	},
@@ -673,7 +705,7 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 
 		// paused
 		action.paused = true;
-		var toTime = clip.duration * 0.5 * percent*0.01;
+		var toTime = clip.duration * 0.5 * percent * 0.01;
 
 
 		if (toTime == 0) {
@@ -1092,6 +1124,116 @@ TY.MMDAvatar.prototype = Object.assign(TY.EventDispatcher.prototype, {
 /**
  * @author waterTian
  */
+TY.AvatarControler = function(avatar) {
+	var scope = this;
+
+	this.avatar = avatar;
+	this.mesh = avatar.mesh;
+
+
+	this.Keys = [];
+	configMorphDate();
+
+	function configMorphDate() {
+		for (var key in scope.mesh.morphTargetDictionary) {
+			for (var i = 0; i <= TY.morphConifg.length; i++) {
+				if (key == TY.morphConifg[i]) {
+					scope.Keys.push(i);
+				}
+			}
+		}
+		console.log(scope.Keys);
+	}
+
+
+	this.testMorphNum = 0;
+
+
+	this.cunMorphsObj = {};
+	for (var i = 0; i < TY.morphConifg.length; ++i)
+		this.cunMorphsObj[i] = 0;
+
+	this.cunMorphsOtherData = [100, 100, 100];
+	this.cunMorphsOtherObj = TY.toObject(this.cunMorphsOtherData);
+
+
+};
+
+
+
+TY.AvatarControler.prototype = Object.assign(TY.EventDispatcher.prototype, {
+
+	constructor: TY.AvatarControler,
+
+	updateMorph: function() {
+		if (this.testMorphNum >= TY.datas.length) this.testMorphNum = 0;
+		this.setMorph(TY.datas[this.testMorphNum]);
+		this.setMorphOther(TY.datas[this.testMorphNum]);
+
+		if (TY.logBox) TY.logBox.innerHTML = JSON.stringify(TY.datas[this.testMorphNum]) + "<br>";
+		this.testMorphNum++;
+	},
+
+	logMorphString: function() {
+		var logString = "";
+		var logNum = 0;
+		for (var key in this.mesh.morphTargetDictionary) {
+			logString += logNum + ":" + key + "  ";
+			logNum++;
+		}
+		console.log(logString);
+	},
+
+	setMorph: function(obj) {
+		var scope = this;
+		// console.log(obj);
+		var toObj = {};
+		for (var i = 0; i < TY.morphConifg.length; i++) {
+			if (obj[i]) {
+				toObj[i] = obj[i]
+			} else {
+				toObj[i] = 0;
+			}
+		}
+		var tween = new TWEEN.Tween(scope.cunMorphsObj)
+			.to(toObj, 300)
+			.start()
+			.onUpdate(function() {
+				for (var i = 0; i < TY.morphConifg.length; i++) {
+					if (this[i] != 0) scope.mesh.morphTargetInfluences[i] = this[i] * 0.01;
+				}
+			});
+	},
+
+	setMorphOther: function(obj) {
+		var scope = this;
+		var toObj = {};
+		for (var i = 0; i < scope.cunMorphsOtherData.length; i++) {
+			var _i = TY.morphConifg.length + i;
+			if (obj[_i]) {
+				toObj[i] = obj[_i]
+			} else {
+				toObj[i] = 100;
+			}
+		}
+		var tween = new TWEEN.Tween(scope.cunMorphsOtherObj)
+			.to(toObj, 300)
+			.start()
+			.onUpdate(function() {
+				for (var i = 0; i < scope.cunMorphsOtherData.length; i++) {
+					if (i < scope.mesh.geometry.animations.length) {
+						scope.avatar.TYgotoAndStopAction(scope.mesh, scope.mesh.geometry.animations[i], 1, this[i]);
+					}
+				}
+			});
+	}
+
+
+
+});
+/**
+ * @author waterTian
+ */
 TY.Gui = function(avatar) {
 
 	var mesh = avatar.mesh;
@@ -1385,7 +1527,7 @@ function init() {
 			avatar.TYsetAnimation(mesh);
 			avatar.TYsetikSolver(mesh);
 
-			initMorphControl();
+			initAvatarControler();
 
 			loadComplete_initBtns();
 
@@ -1393,27 +1535,22 @@ function init() {
 	}
 
 
-	function initMorphControl() {
-		configMorphDate();
-		updateMorph();
+	function initAvatarControler() {
 
-		logMorphString();
+		var avatarControler = new TY.AvatarControler(avatar);
+
+		avatarControler.logMorphString();
+
+		_updata();
+
+		function _updata() {
+			setTimeout(_updata, 400);
+			avatarControler.updateMorph();
+		}
 	}
 
 
 	/////////////////////////////////////////
-	var newKeys = [];
-
-	function configMorphDate() {
-		for (var key in mesh.morphTargetDictionary) {
-			for (var i = 0; i <= TY.morphConifg.length; i++) {
-				if (key == TY.morphConifg[i]) {
-					newKeys.push(i);
-				}
-			}
-		}
-		console.log(newKeys);
-	}
 
 	function configControlDate(arr) {
 		if (arr.length == newKeys.length) {
@@ -1431,83 +1568,6 @@ function init() {
 		return newControlArr;
 	}
 
-
-	var _morphNum = 0;
-
-	function updateMorph() {
-		if (_morphNum >= TY.datas.length) _morphNum = 0;
-		setTimeout(updateMorph, 1000);
-		setMorph(TY.datas[_morphNum]);
-		setMorphOther(TY.datas[_morphNum]);
-		_morphNum++;
-	}
-
-	// function updateMorph() {
-	// 	setTimeout(updateMorph, 100);
-	// 	setMorph(TY.data);
-	//  setMorphOther(TY.datas[TY.data]);
-	// }
-
-
-
-	var cunObj = {};
-	for (var i = 0; i < TY.morphConifg.length; ++i)
-		cunObj[i] = 0;
-
-	function setMorph(obj) {
-		// console.log(obj);
-		var toObj = {};
-		for (var i = 0; i < TY.morphConifg.length; i++) {
-			if (obj[i]) {
-				toObj[i] = obj[i]
-			} else {
-				toObj[i] = 0;
-			}
-		}
-		var tween = new TWEEN.Tween(cunObj)
-			.to(toObj, 300)
-			.start()
-			.onUpdate(function() {
-				for (var i = 0; i < TY.morphConifg.length; i++) {
-					if (this[i] != 0) mesh.morphTargetInfluences[i] = this[i] * 0.01;
-				}
-			});
-	}
-
-	var cunOtherData = [100, 100, 100];
-	var cunOtherObj = TY.toObject(cunOtherData);
-
-	function setMorphOther(obj) {
-		var toObj = {};
-		for (var i = 0; i < cunOtherData.length; i++) {
-			var _i = TY.morphConifg.length + i;
-			if (obj[_i]) {
-				toObj[i] = obj[_i]
-			} else {
-				toObj[i] = 100;
-			}
-		}
-		var tween = new TWEEN.Tween(cunOtherObj)
-			.to(toObj, 300)
-			.start()
-			.onUpdate(function() {
-				for (var i = 0; i < cunOtherData.length; i++) {
-					if (i < mesh.geometry.animations.length) {
-						avatar.TYgotoAndStopAction(mesh, mesh.geometry.animations[i], 1, this[i]);
-					}
-				}
-			});
-	}
-
-	function logMorphString() {
-		var logString = "";
-		var logNum = 0;
-		for (var key in mesh.morphTargetDictionary) {
-			logString += logNum + ":" + key + "  ";
-			logNum++;
-		}
-		console.log(logString);
-	}
 	//
 	window.addEventListener('resize', onWindowResize, false);
 }

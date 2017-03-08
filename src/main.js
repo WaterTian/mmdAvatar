@@ -47,7 +47,7 @@ function loadComplete_initBtns() {
 	                     <input type="button" onclick="addPhysics();" value="Physics" />';
 	container.appendChild(options);
 
-	// initPlayer();
+	initPlayer();
 }
 
 function init() {
@@ -194,12 +194,12 @@ function init() {
 
 		avatarControler.logMorphString();
 
-	    _updata();
-	    function _updata()
-	    {
-	    	setTimeout(_updata, 600);
-	    	avatarControler.updateMorph();
-	    }
+		_updata();
+
+		function _updata() {
+			setTimeout(_updata, 400);
+			avatarControler.updateMorph();
+		}
 	}
 
 
@@ -228,51 +228,12 @@ function init() {
 
 
 function initPlayer() {
-
-	var head = document.getElementsByTagName("head")[0],
-		script = document.createElement("script");
-	if (isMobileDevice())
-		script.src = "./libs/7.7.4/provider.html5.js";
-	else script.src = "./libs/7.7.4/provider.caterpillar.js";
-	head.appendChild(script);
-
-
-	var playerDiv = document.createElement('div');
-	document.body.appendChild(playerDiv);
-
-
-	player = jwplayer(playerDiv);
-	player.setup({
-		// file: 'assets/index.m3u8',
-		file: 'http://101.201.107.35:9380/913.m3u8',
-		hlshtml: true,
-		// autostart: true,
-		height: 100,
-		width: 300
-	});
-
-	player.on('ready', function() {
-		TY.logBox.innerHTML += "ready<br>";
-	});
-
-	player.on('meta', function(event) {
-		var _data = event.metadata['PRIV'];
-		var _key = Object.keys(_data)[0];
-		var _str = TY.base64decode(_key);
-
-		var _Arr = TY.toUnicodeArr(_str);
-		var _Obj = TY.toUnicodeObj(_str);
-
-		TY.data = _Obj;
-		TY.logBox.innerHTML = TY.data + "<br>";
-	});
-
+	player = new TY.Jw('assets/index.m3u8');
 	console.log("initPlayer");
 }
 
 function toPlay() {
 	player.play();
-
 	TY.logBox.innerHTML += "play<br>";
 }
 

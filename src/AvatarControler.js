@@ -46,6 +46,8 @@ TY.AvatarControler.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		if (this.testMorphNum >= TY.datas.length) this.testMorphNum = 0;
 		this.setMorph(TY.datas[this.testMorphNum]);
 		this.setMorphOther(TY.datas[this.testMorphNum]);
+
+		if (TY.logBox) TY.logBox.innerHTML = JSON.stringify(TY.datas[this.testMorphNum]) + "<br>";
 		this.testMorphNum++;
 	},
 

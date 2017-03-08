@@ -6,9 +6,7 @@ TY.isChrome = /chrome\//i.test(navigator.userAgent);
 TY.isWeixin = /MicroMessenger\//i.test(navigator.userAgent);
 TY.isWeibo = /Weibo/i.test(navigator.userAgent);
 
-TY.isMobileDevice = isMobileDevice;
-
-function isMobileDevice() {
+TY.isMobileDevice = function() {
 	if (navigator === undefined || navigator.userAgent === undefined) {
 		return true;
 	}
