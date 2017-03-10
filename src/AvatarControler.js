@@ -51,6 +51,13 @@ TY.AvatarControler.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		this.testMorphNum++;
 	},
 
+	// updateMorph: function() {
+	// 	this.setMorph(TY.data);
+	// 	this.setMorphOther(TY.data);
+	// 	if (TY.logBox) TY.logBox.innerHTML = JSON.stringify(TY.data) + "<br>";
+	// },
+
+
 	logMorphString: function() {
 		var logString = "";
 		var logNum = 0;
@@ -77,7 +84,7 @@ TY.AvatarControler.prototype = Object.assign(TY.EventDispatcher.prototype, {
 			.start()
 			.onUpdate(function() {
 				for (var i = 0; i < TY.morphConifg.length; i++) {
-					if (this[i] != 0) scope.mesh.morphTargetInfluences[i] = this[i] * 0.01;
+					if (this[i] != 0) scope.mesh.morphTargetInfluences[i-1] = this[i] * 0.01;
 				}
 			});
 	},

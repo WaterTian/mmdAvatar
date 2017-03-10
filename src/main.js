@@ -14,6 +14,8 @@ init();
 animate();
 
 
+
+
 function loadComplete_initBtns() {
 	loading.style.display = "none";
 
@@ -197,7 +199,7 @@ function init() {
 		_updata();
 
 		function _updata() {
-			setTimeout(_updata, 400);
+			setTimeout(_updata, 500);
 			avatarControler.updateMorph();
 		}
 	}
@@ -228,7 +230,7 @@ function init() {
 
 
 function initPlayer() {
-	player = new TY.Jw('assets/index.m3u8');
+	player = new TY.Jw('http://101.201.107.35:8088/hls/12345678.m3u8');
 	console.log("initPlayer");
 }
 
