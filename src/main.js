@@ -15,7 +15,6 @@ animate();
 
 
 
-
 function loadComplete_initBtns() {
 	loading.style.display = "none";
 
@@ -146,7 +145,8 @@ function init() {
 
 	// var vmdFiles = ['models/H5shuchu/QingguangA.vmd', 'motion/kishimen.vmd', 'motion/wavefile_full_miku_v2.vmd'];
 	// var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd', 'models/H5shuchu/08.vmd', 'models/H5shuchu/09.vmd', 'models/H5shuchu/10.vmd', 'models/H5shuchu/11.vmd'];
-	var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd'];
+	var vmdFiles = ['models/vmdMorph/rell_l.vmd', 'models/vmdMorph/yaw_l.vmd', 'models/vmdMorph/pitch_u.vmd', 'models/vmdMorph/rell_r.vmd', 'models/vmdMorph/yaw_r.vmd', 'models/vmdMorph/pitch_d.vmd'];
+	// var vmdFiles = ['models/H5shuchu/01.vmd', 'models/H5shuchu/02.vmd', 'models/H5shuchu/03.vmd', 'models/H5shuchu/04.vmd', 'models/H5shuchu/05.vmd', 'models/H5shuchu/06.vmd', 'models/H5shuchu/07.vmd'];
 	// var vmdFiles = ['models/H5shuchu/01.vmd'];
 
 
@@ -199,8 +199,14 @@ function init() {
 		_updata();
 
 		function _updata() {
-			setTimeout(_updata, 500);
-			avatarControler.updateMorph();
+			setTimeout(_updata, 400);
+			if (TY.Debug) {
+				avatarControler.updateMorph_();
+
+			} else {
+				avatarControler.updateMorph();
+			}
+
 		}
 	}
 
@@ -230,7 +236,7 @@ function init() {
 
 
 function initPlayer() {
-	player = new TY.Jw('http://101.201.107.35:8088/hls/12345678.m3u8');
+	player = new TY.Jw(TY.HLS_URL);
 	console.log("initPlayer");
 }
 
