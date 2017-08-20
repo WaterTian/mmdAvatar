@@ -140,6 +140,9 @@ THREE.TyOrbitControls = function(object, domElement) {
 			var gamma = scope.deviceOrientation.gamma ? THREE.Math.degToRad(scope.deviceOrientation.gamma) : 0; // Y''
 			var orient = scope.screenOrientation ? THREE.Math.degToRad(scope.screenOrientation) : 0; // O
 
+
+			// if(TY.logBox)TY.logBox.innerHTML = "alpha:"+alpha+"  beta:"+beta+"  gamma:"+gamma+"  orient:"+orient;
+
 			if (alpha != 0 || beta != 0 || gamma != 0) {
 				// 'ZXY' for the device, but 'YXZ' for us
 				euler.set( -beta, alpha, gamma, 'YXZ' ); 

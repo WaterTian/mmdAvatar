@@ -99,8 +99,8 @@ function init() {
 
 
 	// controls, camera
-	controls = new THREE.OrbitControls(camera, renderer.domElement);
-	// controls = new THREE.TyOrbitControls(camera, renderer.domElement);
+	// controls = new THREE.OrbitControls(camera, renderer.domElement);
+	controls = new THREE.TyOrbitControls(camera, renderer.domElement);
 	controls.target.set(0, 3, 0);
 	camera.position.set(0, 10, 30);
 	controls.update();

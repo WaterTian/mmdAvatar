@@ -73,7 +73,7 @@ TY.AvatarControler.prototype = Object.assign(TY.EventDispatcher.prototype, {
 		// console.log(obj);
 		var toObj = {};
 		for (var i = 0; i < TY.morphConifg.length; i++) {
-			if (obj[i]) {
+			if (obj[i] != undefined) {
 				toObj[i] = obj[i]
 			} else {
 				toObj[i] = 0;
