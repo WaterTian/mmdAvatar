@@ -9,4 +9,4 @@ MMDAvatar
 
 Compatible with Mobile & PC. Weixin & Weibo
 
-#### [Example](https://180china.github.io/180banner/) 
+#### [Example](https://watertian.github.io/mmdAvatar/) 
